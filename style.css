@@ -1,17 +1,41 @@
+#workingArea {
+    padding: 5% 20%;
+}
+
+
+#tools {
+    padding: 1%;
+    background-color: whitesmoke;
+    border-radius: 10px 10px 0 0;
+    
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.toolButton {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: background-color 0.5s ease 0s;
+}
+.toolButton:hover {
+    background-color: rgb(221, 221, 221);
+}
+
 #canvas {
     min-height: 800px;
-    
     padding: 10px;
-    margin: 5% 20%;
 
-    box-shadow: 0 0 10px grey;
+    box-shadow: 0 10px 10px grey;
+    transition: box-shadow 0.5s ease 0s;
 }
 
 #canvas:hover {
-    box-shadow: 0 0 15px grey;
+    box-shadow: 0 10px 15px grey;
 }
 
 #canvas:focus {
-    box-shadow: 0 0 20px grey;
+    box-shadow: 0 10px 15px grey;
     outline: none;
 }

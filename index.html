@@ -9,16 +9,42 @@
 
 <body>
 
-    <div>
-        <div id="tools">
-            <button class="toolButton" id="boldButton" data-element="bold"><i class="fa fa-bold"></i></button>
-            <button class="toolButton" id="italicButton" data-element="italic"><i class="fa fa-italic"></i></button>
-            <button class="toolButton" id="hiliteColorButton" data-element="hiliteColor" data-param="yellow">Set yellow</button>
-            <button class="toolButton" id="hiliteColorButton" data-element="hiliteColor" data-param="white">Set white</button>
-            <button class="toolButton" id="indentButton" data-element="indent">Indent</button>
-            <button class="toolButton" id="outdentButton" data-element="outdent">outdent</button>
-        </div>
+    <div id="workingArea">
         <div id="editor">
+            <div id="tools">
+                <button class="toolButton" id="boldButton" 
+                data-element="bold"
+                tabindex="-1">
+                    <i class="fa fa-bold"></i>
+                </button>
+                <button class="toolButton" id="italicButton" 
+                data-element="italic"
+                tabindex="-1">
+                <i class="fa fa-italic"></i>
+            </button>
+                <button class="toolButton" id="hiliteColorButton" 
+                data-element="hiliteColor" 
+                data-param="yellow"
+                tabindex="-1">
+                Set yellow
+            </button>
+                <button class="toolButton" id="hiliteColorButton" 
+                data-element="hiliteColor" 
+                data-param="white"
+                tabindex="-1">
+                Set white
+            </button>
+                <button class="toolButton" id="indentButton" 
+                data-element="indent"
+                tabindex="-1">
+                Indent
+            </button>
+                <button class="toolButton" id="outdentButton" 
+                data-element="outdent"
+                tabindex="-1">
+                outdent
+            </button>
+            </div>
             <div id="canvas" contenteditable="true"></div>
         </div>
     </div>
