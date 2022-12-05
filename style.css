@@ -1,0 +1,17 @@
+#canvas {
+    min-height: 800px;
+    
+    padding: 10px;
+    margin: 5% 20%;
+
+    box-shadow: 0 0 10px grey;
+}
+
+#canvas:hover {
+    box-shadow: 0 0 15px grey;
+}
+
+#canvas:focus {
+    box-shadow: 0 0 20px grey;
+    outline: none;
+}

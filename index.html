@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+    <div>
+        <div id="tools">
+            <button class="toolButton" id="boldButton" data-element="bold">Bold</button>
+            <button class="toolButton" id="italicButton" data-element="italic">Italic</button>
+            <button class="toolButton" id="hiliteColorButton" data-element="hiliteColor" data-param="yellow">Set yellow</button>
+            <button class="toolButton" id="hiliteColorButton" data-element="hiliteColor" data-param="white">Set white</button>
+            <button class="toolButton" id="indentButton" data-element="indent">Indent</button>
+            <button class="toolButton" id="outdentButton" data-element="outdent">outdent</button>
+        </div>
+        <div id="editor">
+            <div id="canvas" contenteditable="true"></div>
+        </div>
+    </div>
+
+</body>
+
+<script src="./textEditorScript.js"></script>
+
+</html>
