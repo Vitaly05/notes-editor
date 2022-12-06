@@ -80,20 +80,89 @@ ipcMain.handle('openFile', (e) => {
     })
 })
 
-ipcMain.handle('checkDir', async (e) => {
-    let data = {
-        categories: [],
-        conspects: []
+
+
+
+class NavigationPanel {
+    constructor() {
+        this.categories = []
     }
+
+    addCategory(category) {
+        this.categories.push(category)
+    }
+
+    getHtml() {
+        return `<ul id="categories">${this.getCategoriesHtml()}</ul>`
+    }
+
+    getCategoriesHtml() {
+        let html = ''
+        this.categories.forEach(category => {
+            html += category.getHtml()
+        })
+        return html
+    }
+
+    logg() {
+        console.log(this.categories)
+    }
+}
+class Category {
+    constructor(name) {
+        this.name = name
+        this.conspects = []
+    }
+    addConspect(conspect) {
+        this.conspects.push(conspect)
+    }
+    getHtml() {
+        return `<li class="category">${this.name}<ul class="conspects">${this.getConspectsHtml()}</ul></li>`
+    }
+    getConspectsHtml() {
+        let html = ''
+        this.conspects.forEach(conspect => {
+            html += conspect.getHtml()
+        })
+        return html
+    }
+}
+class Conspect {
+    constructor(name) {
+        this.name = name
+    }
+    getHtml() {
+        return `<li class="conspect">${this.name}</li>`
+    }
+}
+
+
+
+ipcMain.handle('checkDir', (e) => {
+
+    const navigation = new NavigationPanel()
+
+    const category1 = new Category('category1')
+    category1.addConspect(new Conspect('conspect1-1'))
+    category1.addConspect(new Conspect('conspect1-2'))
+    navigation.addCategory(category1)
+
+    const category2 = new Category('category2')
+    category2.addConspect(new Conspect('conspect2-1'))
+    category2.addConspect(new Conspect('conspect2-2'))
+    navigation.addCategory(category2)
+
+    e.sender.send('navigationHtml', navigation.getHtml())
+
+    
     fs.readdir(path.join(__dirname, './conspects'), (err, files) => {
         if (err) throw err
 
-        files.forEach(file => {
-            if (file.includes('.consp')) {
-                data.conspects.push(file)
-            } else {
-                data.categories.push(file)
-            }
-        })
+        
     })
+
+
 })
+
+
+
