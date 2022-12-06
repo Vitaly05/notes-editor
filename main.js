@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const fs = require('fs')
+const path = require('path')
 
 let mainWindow
 
@@ -13,8 +14,9 @@ const createWindow = () => {
         }
     })
 
+
     mainWindow.loadFile('index.html')
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 };
 
 app.whenReady().then(() => {
@@ -75,5 +77,25 @@ ipcMain.handle('openFile', (e) => {
         }
     }).catch(err => {
         console.log(err)
+    })
+})
+
+ipcMain.handle('checkDir', async (e) => {
+    let data = {
+        Categories: [],
+        Conspects: []
+    }
+    fs.readdir(path.join(__dirname, './conspects'), (err, files) => {
+        if (err) throw err
+
+        files.forEach(file => {
+            if (file.includes('.consp')) {
+                data.Conspects.push(file)
+            } else {
+                data.Categories.push(file)
+            }
+        })
+        
+        console.log(data)
     })
 })

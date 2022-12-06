@@ -28,3 +28,5 @@ openFileButton.addEventListener('click', () => {
 ipcRenderer.on('fileOpen', (e, fileContent) => {
     canvas.innerHTML = fileContent
 })
+
+ipcRenderer.invoke('checkDir')
