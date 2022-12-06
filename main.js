@@ -16,7 +16,7 @@ const createWindow = () => {
 
 
     mainWindow.loadFile('index.html')
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 };
 
 app.whenReady().then(() => {
@@ -82,20 +82,18 @@ ipcMain.handle('openFile', (e) => {
 
 ipcMain.handle('checkDir', async (e) => {
     let data = {
-        Categories: [],
-        Conspects: []
+        categories: [],
+        conspects: []
     }
     fs.readdir(path.join(__dirname, './conspects'), (err, files) => {
         if (err) throw err
 
         files.forEach(file => {
             if (file.includes('.consp')) {
-                data.Conspects.push(file)
+                data.conspects.push(file)
             } else {
-                data.Categories.push(file)
+                data.categories.push(file)
             }
         })
-        
-        console.log(data)
     })
 })
