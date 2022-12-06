@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const fs = require('fs')
-const path = require('path')
 
 let mainWindow
 
@@ -16,44 +15,6 @@ const createWindow = () => {
 
     mainWindow.loadFile('index.html')
     mainWindow.webContents.openDevTools()
-
-
-
-    ipcMain.handle('saveFileAs', (e, fileContents) => {
-        dialog.showSaveDialog(mainWindow, {
-            title: 'Сохранить как'
-        }).then(result => {
-            if (!result.canceled) {
-    
-                fs.writeFile(result.filePath, fileContents, function(err) {
-                    console.log(err)
-                })
-    
-            }
-        }).catch(err => {
-            console.log(err)
-        })
-    })
-    
-    ipcMain.handle('openFile', (e) => {
-        dialog.showOpenDialog(mainWindow, {
-            title: 'Открытие документа'
-        }).then(result => {
-            if (!result.canceled) {
-    
-                fs.readFile(result.filePaths[0], {}, (err, data) => {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        e.sender.send('fileOpen', data.toString())
-                    }
-                })
-    
-            }
-        }).catch(err => {
-            console.log(err)
-        })
-    })
 };
 
 app.whenReady().then(() => {
@@ -74,3 +35,45 @@ app.on('window-all-closed', () => {
 
 
 
+ipcMain.handle('saveFileAs', (e, fileContents) => {
+    dialog.showSaveDialog(mainWindow, {
+        title: 'Сохранить как',
+        filters: [
+            { name: 'Конспект', extensions: ['consp'] }
+        ]
+    }).then(result => {
+        if (!result.canceled) {
+
+            fs.writeFile(result.filePath, fileContents, function(err) {
+                console.log(err)
+            })
+
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+ipcMain.handle('openFile', (e) => {
+    dialog.showOpenDialog(mainWindow, {
+        title: 'Открытие документа',
+        filters: [
+            { name: 'Конспект', extensions: ['consp'] }
+        ],
+        properties: [ 'openFile' ]
+    }).then(result => {
+        if (!result.canceled) {
+
+            fs.readFile(result.filePaths[0], {}, (err, data) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    e.sender.send('fileOpen', data.toString())
+                }
+            })
+
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+})
