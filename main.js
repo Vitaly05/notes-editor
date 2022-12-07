@@ -1,3 +1,4 @@
+const { CANCELLED } = require('dns');
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const fs = require('fs')
 const path = require('path')
@@ -141,24 +142,34 @@ class Conspect {
 ipcMain.handle('checkDir', (e) => {
 
     const navigation = new NavigationPanel()
-
-    const category1 = new Category('category1')
-    category1.addConspect(new Conspect('conspect1-1'))
-    category1.addConspect(new Conspect('conspect1-2'))
-    navigation.addCategory(category1)
-
-    const category2 = new Category('category2')
-    category2.addConspect(new Conspect('conspect2-1'))
-    category2.addConspect(new Conspect('conspect2-2'))
-    navigation.addCategory(category2)
-
-    e.sender.send('navigationHtml', navigation.getHtml())
-
+    const mainDir = path.join(__dirname, './conspects')
     
-    fs.readdir(path.join(__dirname, './conspects'), (err, files) => {
+    fs.readdir(mainDir, (err, files) => {
         if (err) throw err
 
-        
+        const mainCategory = new Category('Без категории')
+        files.forEach(file => {
+
+            if (file.includes('.consp')) {
+                mainCategory.addConspect(new Conspect(file.replace('.consp', '')))
+            } else {
+                const category = new Category(file)
+                
+                const categoryDir = path.join(mainDir, `/${file}`)
+                const files = fs.readdirSync(categoryDir)
+
+                files.forEach(file => {
+                    if (file.includes('.consp')) {
+                        category.addConspect(new Conspect(file.replace('.consp', '')))
+                    }
+                })
+                navigation.addCategory(category)
+            }
+        })
+
+        navigation.addCategory(mainCategory)
+
+        e.sender.send('navigationHtml', navigation.getHtml())
     })
 
 
