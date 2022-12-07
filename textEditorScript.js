@@ -25,7 +25,7 @@ openFileButton.addEventListener('click', () => {
     ipcRenderer.invoke('openFile')
 })
 
-ipcRenderer.on('fileOpen', (e, fileContent) => {
+ipcRenderer.on('setCanvasData', (e, fileContent) => {
     canvas.innerHTML = fileContent
 })
 
@@ -37,4 +37,12 @@ ipcRenderer.invoke('checkDir')
 
 ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
     navigationPanel.innerHTML = navigationHtml
+
+    document.querySelectorAll('.conspectButton').forEach(button => {
+        // const filePath = button.dataset['filepath']
+        // console.log(filePath)
+        button.addEventListener('click', () => {
+            ipcRenderer.invoke('openConspect', button.dataset['filepath'])
+        })
+    })
 })

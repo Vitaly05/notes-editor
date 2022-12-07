@@ -71,13 +71,23 @@ ipcMain.handle('openFile', (e) => {
                 if (err) {
                     console.log(err)
                 } else {
-                    e.sender.send('fileOpen', data.toString())
+                    e.sender.send('setCanvasData', data.toString())
                 }
             })
 
         }
     }).catch(err => {
         console.log(err)
+    })
+})
+
+ipcMain.handle('openConspect', (e, filePath) => {
+    fs.readFile(path.join(__dirname, `${filePath}.consp`), (err, data) => {
+        if (err) {
+            console.log(err)
+        } else {
+            e.sender.send('setCanvasData', data.toString())
+        }
     })
 })
 
@@ -94,13 +104,13 @@ class NavigationPanel {
     }
 
     getHtml() {
-        return `<div id="categories">${this.getCategoriesHtml()}</div>`
+        return `<div id="categories">${this.getCategoriesHtml('/conspects')}</div>`
     }
 
-    getCategoriesHtml() {
+    getCategoriesHtml(path) {
         let html = ''
         this.categories.forEach(category => {
-            html += category.getHtml()
+            html += category.getHtml(path)
         })
         return html
     }
@@ -117,13 +127,13 @@ class Category {
     addConspect(conspect) {
         this.conspects.push(conspect)
     }
-    getHtml() {
-        return `<div class="category"><button class="categoryButton">${this.name}</button><div class="conspects">${this.getConspectsHtml()}</div></div>`
+    getHtml(path) {
+        return `<div class="category"><button class="categoryButton">${this.name}</button><div class="conspects">${this.getConspectsHtml(`${path}${this.name != 'Без категории' ? `/${this.name}` : ''}`)}</div></div>`
     }
-    getConspectsHtml() {
+    getConspectsHtml(path) {
         let html = ''
         this.conspects.forEach(conspect => {
-            html += conspect.getHtml()
+            html += conspect.getHtml(path)
         })
         return html
     }
@@ -132,8 +142,8 @@ class Conspect {
     constructor(name) {
         this.name = name
     }
-    getHtml() {
-        return `<div class="conspect"><button class="conspectButton">${this.name}</button></div>`
+    getHtml(path) {
+        return `<div class="conspect"><button class="conspectButton" data-filePath="${path}/${this.name}">${this.name}</button></div>`
     }
 }
 
@@ -174,6 +184,4 @@ ipcMain.handle('checkDir', (e) => {
 
 
 })
-
-
 
