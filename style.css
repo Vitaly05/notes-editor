@@ -39,3 +39,48 @@
     box-shadow: 0 10px 15px grey;
     outline: none;
 }
+
+
+#navigationPanel {
+    width: 150px;
+}
+
+
+.category {
+    margin-bottom: 15%;
+}
+
+.categoryButton {
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    padding: 5%;
+    font-weight: bold;
+
+    transition: background-color 0.5s ease 0s;
+}
+.categoryButton:hover {
+    background-color: rgb(232, 232, 232);
+}
+
+.conspects {
+    width: 90%;
+    margin: 5% 0 10% 10%;
+}
+
+.conspect {
+    list-style: none;
+    margin-bottom: 5%;
+    direction: rtl;
+}
+
+.conspectButton {
+    text-align: right;
+    background-color: transparent;
+    border: none;
+
+    transition: background-color 0.5s ease 0s;
+}
+.conspectButton:hover {
+    background-color: rgb(232, 232, 232);
+}

@@ -94,7 +94,7 @@ class NavigationPanel {
     }
 
     getHtml() {
-        return `<ul id="categories">${this.getCategoriesHtml()}</ul>`
+        return `<div id="categories">${this.getCategoriesHtml()}</div>`
     }
 
     getCategoriesHtml() {
@@ -118,7 +118,7 @@ class Category {
         this.conspects.push(conspect)
     }
     getHtml() {
-        return `<li class="category">${this.name}<ul class="conspects">${this.getConspectsHtml()}</ul></li>`
+        return `<div class="category"><button class="categoryButton">${this.name}</button><div class="conspects">${this.getConspectsHtml()}</div></div>`
     }
     getConspectsHtml() {
         let html = ''
@@ -133,7 +133,7 @@ class Conspect {
         this.name = name
     }
     getHtml() {
-        return `<li class="conspect">${this.name}</li>`
+        return `<div class="conspect"><button class="conspectButton">${this.name}</button></div>`
     }
 }
 
