@@ -11,10 +11,10 @@ buttons.forEach(button => {
 })
 
 
-let saveFileButton = document.getElementById('saveFileButton')
+let saveAsButton = document.getElementById('saveAsButton')
 let canvas = document.getElementById('canvas')
 
-saveFileButton.addEventListener('click', () => {
+saveAsButton.addEventListener('click', () => {
     ipcRenderer.invoke('saveFileAs', canvas.innerHTML)
 })
 
@@ -35,14 +35,23 @@ let navigationPanel = document.getElementById('navigationPanel')
 
 ipcRenderer.invoke('checkDir')
 
+
+let selectedConspectPath
+
 ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
     navigationPanel.innerHTML = navigationHtml
 
     document.querySelectorAll('.conspectButton').forEach(button => {
-        // const filePath = button.dataset['filepath']
-        // console.log(filePath)
         button.addEventListener('click', () => {
-            ipcRenderer.invoke('openConspect', button.dataset['filepath'])
+            selectedConspectPath = button.dataset['filepath']
+            ipcRenderer.invoke('openConspect', selectedConspectPath)
         })
     })
+})
+
+
+let saveButton = document.getElementById('saveButton')
+
+saveButton.addEventListener('click', () => {
+    ipcRenderer.invoke('saveConspect', selectedConspectPath, canvas.innerHTML)
 })

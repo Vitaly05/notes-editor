@@ -47,8 +47,8 @@ ipcMain.handle('saveFileAs', (e, fileContents) => {
     }).then(result => {
         if (!result.canceled) {
 
-            fs.writeFile(result.filePath, fileContents, function(err) {
-                console.log(err)
+            fs.writeFile(result.filePath, fileContents, (err) => {
+                console.error(err)
             })
 
         }
@@ -69,7 +69,7 @@ ipcMain.handle('openFile', (e) => {
 
             fs.readFile(result.filePaths[0], {}, (err, data) => {
                 if (err) {
-                    console.log(err)
+                    console.error(err)
                 } else {
                     e.sender.send('setCanvasData', data.toString())
                 }
@@ -84,10 +84,16 @@ ipcMain.handle('openFile', (e) => {
 ipcMain.handle('openConspect', (e, filePath) => {
     fs.readFile(path.join(__dirname, `${filePath}.consp`), (err, data) => {
         if (err) {
-            console.log(err)
+            console.error(err)
         } else {
             e.sender.send('setCanvasData', data.toString())
         }
+    })
+})
+
+ipcMain.handle('saveConspect', (e, filePath, fileData) => {
+    fs.writeFile(path.join(__dirname, `${filePath}.consp`), fileData, (err) => {
+        if (err) console.error(err)
     })
 })
 
