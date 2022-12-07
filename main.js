@@ -110,7 +110,7 @@ class NavigationPanel {
     }
 
     getHtml() {
-        return `<div id="categories">${this.getCategoriesHtml('/conspects')}</div>`
+        return `<div id="categories">${this.getCategoriesHtml('/conspects')}<div class="category"><button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></div></div>`
     }
 
     getCategoriesHtml(path) {
