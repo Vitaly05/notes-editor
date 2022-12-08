@@ -104,6 +104,13 @@ ipcMain.handle('addCategory', (e, categoryName) => {
     })
 })
 
+ipcMain.handle('deleteCategory', (e, categoryPath) => {
+    fs.rmdir(path.join(__dirname, categoryPath), (err) => {
+        if (err) console.error(err)
+        else checkDir()
+    })
+})
+
 
 
 
@@ -141,7 +148,7 @@ class Category {
         this.conspects.push(conspect)
     }
     getHtml(path) {
-        return `<div class="category"><button class="categoryButton">${this.name}</button><div class="conspects">${this.getConspectsHtml(`${path}${this.name != 'Без категории' ? `/${this.name}` : ''}`)}</div></div>`
+        return `<div class="category"><div class="categoryTitle"><button class="categoryButton">${this.name}</button><button class="deleteCategoryButton" data-categoryPath="${path}/${this.name}"><i class="fa fa-trash"></i></button></div><div class="conspects">${this.getConspectsHtml(`${path}/${this.name}`)}</div></div>`
     }
     getConspectsHtml(path) {
         let html = ''
@@ -173,12 +180,9 @@ function checkDir() {
     fs.readdir(mainDir, (err, files) => {
         if (err) throw err
 
-        const mainCategory = new Category('Без категории')
         files.forEach(file => {
 
-            if (file.includes('.consp')) {
-                mainCategory.addConspect(new Conspect(file.replace('.consp', '')))
-            } else {
+            if (!file.includes('.consp')) {
                 const category = new Category(file)
                 
                 const categoryDir = path.join(mainDir, `/${file}`)
@@ -193,7 +197,6 @@ function checkDir() {
             }
         })
 
-        navigation.addCategory(mainCategory)
 
         mainWindow.webContents.send('navigationHtml', navigation.getHtml())
     })

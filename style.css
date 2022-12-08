@@ -42,11 +42,16 @@
 
 
 #navigationPanel {
-    width: 50%;
+    width: 20%;
 }
 
 .category {
     margin-bottom: 15%;
+}
+
+.categoryTitle {
+    display: flex;
+    justify-content: space-between;
 }
 
 .categoryButton {
@@ -62,6 +67,17 @@
     background-color: rgb(232, 232, 232);
 }
 
+.deleteCategoryButton {
+    background-color: transparent;
+    border: none;
+    padding: 5%;
+    color: rgb(255, 76, 76);
+
+    transition: background-color 0.5s ease 0s;
+}
+.deleteCategoryButton:hover {
+    background-color: rgb(232, 232, 232);
+}
 
 .conspects {
     width: 90%;

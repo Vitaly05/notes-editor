@@ -56,6 +56,7 @@ ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
     })
 
     addCategoryButtonClickListener()
+    deleteCategoryButtonClickListener()
 })
 
 function conspectButtonClickListener(button) {
@@ -74,11 +75,20 @@ function addCategoryButtonClickListener() {
     })
 }
 
+function deleteCategoryButtonClickListener() {
+    document.querySelectorAll('.deleteCategoryButton').forEach(button => {
+        button.addEventListener('click', () => {
+            ipcRenderer.invoke('deleteCategory', button.dataset['categorypath'])
+        })
+    })
+}
+
 function addCategory_CancelButtonClickListener() {
     document.getElementById('addCategory_CancelButton').addEventListener('click', () => {
         showAddCategoryField(false)
 
         addCategoryButtonClickListener()
+        deleteCategoryButtonClickListener()
     })
 }
 
@@ -96,6 +106,7 @@ function addCategory_SaveButtonClickListener() {
         showAddCategoryField(false)
 
         addCategoryButtonClickListener()
+        deleteCategoryButtonClickListener()
     })
 }
 
