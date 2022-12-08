@@ -104,8 +104,16 @@ ipcMain.handle('addCategory', (e, categoryName) => {
     })
 })
 
-ipcMain.handle('deleteCategory', (e, categoryPath) => {
-    fs.rmdir(path.join(__dirname, categoryPath), (err) => {
+ipcMain.handle('deleteCategory', async (e, categoryPath) => {
+    const _categoryPath = path.join(__dirname, categoryPath)
+
+    const files = fs.readdirSync(_categoryPath)
+    files.forEach(file => {
+        fs.unlinkSync(path.join(__dirname, categoryPath, file))
+    })
+        
+
+    fs.rmdir(_categoryPath, (err) => {
         if (err) console.error(err)
         else checkDir()
     })
