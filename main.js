@@ -97,6 +97,13 @@ ipcMain.handle('saveConspect', (e, filePath, fileData) => {
     })
 })
 
+ipcMain.handle('addCategory', (e, categoryName) => {
+    fs.mkdir(path.join(__dirname, '/conspects/' + categoryName), (err) => {
+        if (err) console.error(err)
+        else checkDir()
+    })
+})
+
 
 
 
@@ -110,7 +117,7 @@ class NavigationPanel {
     }
 
     getHtml() {
-        return `<div id="categories">${this.getCategoriesHtml('/conspects')}<div class="category"><button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></div></div>`
+        return `<div id="categories">${this.getCategoriesHtml('/conspects')}<div class="category" id="addCategoryPanel"><button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button></div></div>`
     }
 
     getCategoriesHtml(path) {
@@ -156,9 +163,12 @@ class Conspect {
 
 
 ipcMain.handle('checkDir', (e) => {
+    checkDir()
+})
 
+function checkDir() {
     const navigation = new NavigationPanel()
-    const mainDir = path.join(__dirname, './conspects')
+    const mainDir = path.join(__dirname, '/conspects')
     
     fs.readdir(mainDir, (err, files) => {
         if (err) throw err
@@ -185,9 +195,6 @@ ipcMain.handle('checkDir', (e) => {
 
         navigation.addCategory(mainCategory)
 
-        e.sender.send('navigationHtml', navigation.getHtml())
+        mainWindow.webContents.send('navigationHtml', navigation.getHtml())
     })
-
-
-})
-
+}

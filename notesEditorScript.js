@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, ipcMain } = require('electron')
 
 document.execCommand('styleWithCSS', false, true)
 ipcRenderer.invoke('checkDir')
@@ -12,6 +12,8 @@ let toolButtons = document.querySelectorAll('.toolButton')
 let saveAsButton = document.getElementById('saveAsButton')
 let saveButton = document.getElementById('saveButton')
 let openFileButton = document.getElementById('openFileButton')
+
+let addCategoryButton = document.getElementById('addCategoryButton')
 
 let canvas = document.getElementById('canvas')
 let navigationPanel = document.getElementById('navigationPanel')
@@ -46,10 +48,54 @@ openFileButton.addEventListener('click', () => {
     ipcRenderer.invoke('openFile')
 })
 
+ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
+    navigationPanel.innerHTML = navigationHtml
+
+    document.querySelectorAll('.conspectButton').forEach(button => {
+        conspectButtonClickListener(button)
+    })
+
+    addCategoryButtonClickListener()
+})
+
 function conspectButtonClickListener(button) {
     button.addEventListener('click', () => {
         selectedConspectPath = button.dataset['filepath']
         ipcRenderer.invoke('openConspect', selectedConspectPath)
+    })
+}
+
+function addCategoryButtonClickListener() {
+    document.getElementById('addCategoryButton').addEventListener('click', () => {
+        showAddCategoryField(true)
+
+        addCategory_SaveButtonClickListener()
+        addCategory_CancelButtonClickListener()
+    })
+}
+
+function addCategory_CancelButtonClickListener() {
+    document.getElementById('addCategory_CancelButton').addEventListener('click', () => {
+        showAddCategoryField(false)
+
+        addCategoryButtonClickListener()
+    })
+}
+
+function addCategory_SaveButtonClickListener() {
+    document.getElementById('addCategory_SaveButton').addEventListener('click', () => {
+        const addCategoryInput = document.getElementById('addCategoryInput')
+        if (addCategoryInput == null || addCategoryInput.value.trim() == '') {
+            console.log('incorrect name')
+            return
+        }
+
+        ipcRenderer.invoke('addCategory', addCategoryInput.value.trim())
+
+
+        showAddCategoryField(false)
+
+        addCategoryButtonClickListener()
     })
 }
 
@@ -62,10 +108,15 @@ ipcRenderer.on('setCanvasData', (e, fileContent) => {
     canvas.innerHTML = fileContent
 })
 
-ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
-    navigationPanel.innerHTML = navigationHtml
 
-    document.querySelectorAll('.conspectButton').forEach(button => {
-        conspectButtonClickListener(button)
-    })
-})
+
+
+// FUNCTIONS
+
+function showAddCategoryField(showField) {
+    if (showField) {
+        document.getElementById('addCategoryPanel').innerHTML = '<div id="addCategory"><input id="addCategoryInput"></input><br /><div id="addCategoryButtons"><button class="addCategoryButton" id="addCategory_SaveButton">Сохранить</button><button class="addCategoryButton" id="addCategory_CancelButton">Отмена</button></div></div>'
+    } else {
+        document.getElementById('addCategoryPanel').innerHTML = '<button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button>'
+    }
+}
