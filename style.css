@@ -46,7 +46,8 @@
 }
 
 .category {
-    margin-bottom: 15%;
+    margin-bottom: 5%;
+    border-bottom: 1px solid grey;
 }
 
 .categoryTitle {
@@ -56,6 +57,7 @@
 
 .categoryButton {
     text-align: left;
+    font-size: 15pt;
     background-color: transparent;
     border: none;
     padding: 5%;
@@ -81,12 +83,12 @@
 
 .conspects {
     width: 90%;
-    margin: 5% 0 10% 10%;
+    margin: 2% 0 5% 5%;
 }
 
 .conspect {
     list-style: none;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
     direction: rtl;
 }
 
@@ -102,7 +104,7 @@
 }
 
 
-#addCategoryButton {
+.addButton {
     width: 80%;
     margin: 0 10%;
     background-color: transparent;
@@ -117,10 +119,10 @@
 
     transition: background-color 0.5s ease 0s;
 }
-#addCategoryButton > i {
+.addButton > i {
     margin-right: 10px;
 }
-#addCategoryButton:hover {
+.addButton:hover {
     background-color: rgb(232, 232, 232);
 }
 
