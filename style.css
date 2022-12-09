@@ -137,19 +137,19 @@
     border: 1px solid grey;
     border-radius: 5px;
 }
-#addCategoryInput:focus, .addConspectInput {
+#addCategoryInput:focus, .addConspectInput:focus {
     background-color: rgb(232, 232, 232);
     outline: none;
 }
 
-#addCategoryButtons, .addConspectButtons {
+#addCategoryButtons, .addConspectButtons, .addConspect_CancelButton {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 1%;
 }
 
-.addCategoryButton, .addConspectButton {
+.addCategoryButton, .addConspectButtons > button {
     background-color: transparent;
     border: none;
     padding: 5px;
@@ -157,6 +157,6 @@
 
     transition: background-color 0.5s ease 0s;
 }
-.addCategoryButton:hover, .addConspectButton:hover {
+.addCategoryButton:hover, .addConspectButton:hover, .addConspectButtons > button:hover {
     background-color: rgb(232, 232, 232);
 }
