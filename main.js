@@ -119,6 +119,14 @@ ipcMain.handle('deleteCategory', async (e, categoryPath) => {
     })
 })
 
+ipcMain.handle('addConspect', (e, category, conspectName) => {
+    fs.writeFile(path.join(__dirname, 'conspects', category, conspectName + '.consp'), '', (err) => {
+        if (err) console.error(err)
+
+        checkDir()
+    })
+})
+
 
 
 

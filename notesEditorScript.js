@@ -140,13 +140,18 @@ function addConspect_CancelButtonClickListener() {
 function addConspect_SaveButtonClickListener() {
     document.querySelectorAll('.addConspect_SaveButton').forEach(button => {
         button.addEventListener('click', () => {
-            // const addConspectInput = document.getElementById('addConspectInput')
-            // if (addConspectInput == null || addConspectInput.value.trim() == '') {
-            //     console.log('incorrect name')
-            //     return
-            // }
+            let addConspectInput
+            document.querySelectorAll('.addConspectInput').forEach(input => {
+                if (input.dataset['category'] == button.dataset['category']) {
+                    addConspectInput = input
+                }
+            })
+            if (addConspectInput == null || addConspectInput.value.trim() == '') {
+                console.log('incorrect name')
+                return
+            }
     
-            // ipcRenderer.invoke('addConspect', addConspectInput.value.trim())
+            ipcRenderer.invoke('addConspect', button.dataset['category'], addConspectInput.value.trim())
     
     
             showAddConspectPanel(false, button.dataset['category'])
@@ -183,7 +188,7 @@ function showAddConspectPanel(showPanel, category) {
     if (showPanel) {
         document.querySelectorAll('.addConspectPanel').forEach(panel => {
             if (panel.dataset['category'] == category) {
-                panel.innerHTML = `<div class="addConspect"><input class="addConspectInput"></input><br /><div class="addConspectButtons"><button class="addConspect_SaveButton" data-category="${category}">Сохранить</button><button class="addConspect_CancelButton" data-category="${category}">Отмена</button></div></div>`
+                panel.innerHTML = `<div class="addConspect"><input class="addConspectInput" data-category="${category}"></input><br /><div class="addConspectButtons"><button class="addConspect_SaveButton" data-category="${category}">Сохранить</button><button class="addConspect_CancelButton" data-category="${category}">Отмена</button></div></div>`
             }
         })
     } else {
