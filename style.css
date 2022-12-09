@@ -128,7 +128,7 @@
 
 
 
-#addCategory > input {
+#addCategoryInput, .addConspectInput {
     width: 100%;
     font-weight: bold;
     box-sizing: border-box;
@@ -136,19 +136,19 @@
     border: 1px solid grey;
     border-radius: 5px;
 }
-#addCategory > input:focus {
+#addCategoryInput:focus, .addConspectInput {
     background-color: rgb(232, 232, 232);
     outline: none;
 }
 
-#addCategoryButtons {
+#addCategoryButtons, .addConspectButtons {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 1%;
 }
 
-.addCategoryButton {
+.addCategoryButton, .addConspectButton {
     background-color: transparent;
     border: none;
     padding: 5px;
@@ -156,6 +156,6 @@
 
     transition: background-color 0.5s ease 0s;
 }
-.addCategoryButton:hover {
+.addCategoryButton:hover, .addConspectButton:hover {
     background-color: rgb(232, 232, 232);
 }

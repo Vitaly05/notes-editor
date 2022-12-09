@@ -13,7 +13,6 @@ let saveAsButton = document.getElementById('saveAsButton')
 let saveButton = document.getElementById('saveButton')
 let openFileButton = document.getElementById('openFileButton')
 
-let addCategoryButton = document.getElementById('addCategoryButton')
 
 let canvas = document.getElementById('canvas')
 let navigationPanel = document.getElementById('navigationPanel')
@@ -57,6 +56,8 @@ ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
 
     addCategoryButtonClickListener()
     deleteCategoryButtonClickListener()
+
+    addConspectButtonClickListener()
 })
 
 function conspectButtonClickListener(button) {
@@ -66,9 +67,11 @@ function conspectButtonClickListener(button) {
     })
 }
 
+
+
 function addCategoryButtonClickListener() {
     document.getElementById('addCategoryButton').addEventListener('click', () => {
-        showAddCategoryField(true)
+        showAddCategoryPanel(true)
 
         addCategory_SaveButtonClickListener()
         addCategory_CancelButtonClickListener()
@@ -85,7 +88,7 @@ function deleteCategoryButtonClickListener() {
 
 function addCategory_CancelButtonClickListener() {
     document.getElementById('addCategory_CancelButton').addEventListener('click', () => {
-        showAddCategoryField(false)
+        showAddCategoryPanel(false)
 
         addCategoryButtonClickListener()
         deleteCategoryButtonClickListener()
@@ -103,10 +106,54 @@ function addCategory_SaveButtonClickListener() {
         ipcRenderer.invoke('addCategory', addCategoryInput.value.trim())
 
 
-        showAddCategoryField(false)
+        showAddCategoryPanel(false)
 
         addCategoryButtonClickListener()
         deleteCategoryButtonClickListener()
+    })
+}
+
+
+
+function addConspectButtonClickListener() {
+    document.querySelectorAll('.addConspectButton').forEach(button => {
+        button.addEventListener('click', () => {
+            showAddConspectPanel(true, button.dataset['category'])
+
+            addConspect_SaveButtonClickListener()
+            addConspect_CancelButtonClickListener()
+        })
+    })
+}
+
+function addConspect_CancelButtonClickListener() {
+    document.querySelectorAll('.addConspect_CancelButton').forEach(button => {
+        button.addEventListener('click', () => {
+            showAddConspectPanel(false, button.dataset['category'])
+    
+            addConspectButtonClickListener()
+            //deleteConspectButtonClickListener()
+        })
+    })
+}
+
+function addConspect_SaveButtonClickListener() {
+    document.querySelectorAll('.addConspect_SaveButton').forEach(button => {
+        button.addEventListener('click', () => {
+            // const addConspectInput = document.getElementById('addConspectInput')
+            // if (addConspectInput == null || addConspectInput.value.trim() == '') {
+            //     console.log('incorrect name')
+            //     return
+            // }
+    
+            // ipcRenderer.invoke('addConspect', addConspectInput.value.trim())
+    
+    
+            showAddConspectPanel(false, button.dataset['category'])
+    
+            addConspectButtonClickListener()
+            //deleteConspectButtonClickListener()
+        })
     })
 }
 
@@ -124,10 +171,26 @@ ipcRenderer.on('setCanvasData', (e, fileContent) => {
 
 // FUNCTIONS
 
-function showAddCategoryField(showField) {
-    if (showField) {
+function showAddCategoryPanel(showPanel) {
+    if (showPanel) {
         document.getElementById('addCategoryPanel').innerHTML = '<div id="addCategory"><input id="addCategoryInput"></input><br /><div id="addCategoryButtons"><button class="addCategoryButton" id="addCategory_SaveButton">Сохранить</button><button class="addCategoryButton" id="addCategory_CancelButton">Отмена</button></div></div>'
     } else {
         document.getElementById('addCategoryPanel').innerHTML = '<button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button>'
+    }
+}
+
+function showAddConspectPanel(showPanel, category) {
+    if (showPanel) {
+        document.querySelectorAll('.addConspectPanel').forEach(panel => {
+            if (panel.dataset['category'] == category) {
+                panel.innerHTML = `<div class="addConspect"><input class="addConspectInput"></input><br /><div class="addConspectButtons"><button class="addConspect_SaveButton" data-category="${category}">Сохранить</button><button class="addConspect_CancelButton" data-category="${category}">Отмена</button></div></div>`
+            }
+        })
+    } else {
+        document.querySelectorAll('.addConspectPanel').forEach(panel => {
+            if (panel.dataset['category'] == category) {
+                panel.innerHTML = `<button class="addConspectButton" data-category="${category}"><i class="fa fa-add"></i><p>Новый конспект</p></button>`
+            }
+        })
     }
 }
