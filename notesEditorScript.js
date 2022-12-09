@@ -95,6 +95,14 @@ function addCategory_CancelButtonClickListener() {
     })
 }
 
+function deleteCategoryButtonClickListener() {
+    document.querySelectorAll('.deleteConspectButton').forEach(button => {
+        button.addEventListener('click', () => {
+            ipcRenderer.invoke('deleteConspect', button.dataset['conspectpath'])
+        })
+    })
+}
+
 function addCategory_SaveButtonClickListener() {
     document.getElementById('addCategory_SaveButton').addEventListener('click', () => {
         const addCategoryInput = document.getElementById('addCategoryInput')

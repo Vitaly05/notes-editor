@@ -122,8 +122,14 @@ ipcMain.handle('deleteCategory', async (e, categoryPath) => {
 ipcMain.handle('addConspect', (e, category, conspectName) => {
     fs.writeFile(path.join(__dirname, 'conspects', category, conspectName + '.consp'), '', (err) => {
         if (err) console.error(err)
+        else checkDir()
+    })
+})
 
-        checkDir()
+ipcMain.handle('deleteConspect', (e, conspectPath) => {
+    fs.unlink(path.join(__dirname, conspectPath + '.consp'), (err) => {
+        if (err) console.error(err)
+        else checkDir()
     })
 })
 
@@ -179,7 +185,7 @@ class Conspect {
         this.name = name
     }
     getHtml(path) {
-        return `<div class="conspect"><button class="conspectButton" data-filePath="${path}/${this.name}">${this.name}</button></div>`
+        return `<div class="conspect"><button class="deleteConspectButton" data-conspectPath="${path}/${this.name}"><i class="fa fa-trash"></i></button><button class="conspectButton" data-filePath="${path}/${this.name}">${this.name}</button></div>`
     }
 }
 
