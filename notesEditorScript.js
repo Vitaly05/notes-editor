@@ -128,6 +128,6 @@ function showAddCategoryField(showField) {
     if (showField) {
         document.getElementById('addCategoryPanel').innerHTML = '<div id="addCategory"><input id="addCategoryInput"></input><br /><div id="addCategoryButtons"><button class="addCategoryButton" id="addCategory_SaveButton">Сохранить</button><button class="addCategoryButton" id="addCategory_CancelButton">Отмена</button></div></div>'
     } else {
-        document.getElementById('addCategoryPanel').innerHTML = '<button class="addButton" id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button>'
+        document.getElementById('addCategoryPanel').innerHTML = '<button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button>'
     }
 }

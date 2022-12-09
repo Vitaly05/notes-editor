@@ -104,7 +104,7 @@
 }
 
 
-.addButton {
+#addCategoryButton, .addConspectButton {
     width: 80%;
     margin: 0 10%;
     background-color: transparent;
@@ -119,21 +119,14 @@
 
     transition: background-color 0.5s ease 0s;
 }
-.addButton > i {
+#addCategoryButton > i, .addConspectButton > i {
     margin-right: 10px;
 }
-.addButton:hover {
+#addCategoryButton:hover, .addConspectButton:hover {
     background-color: rgb(232, 232, 232);
 }
 
 
-
-.addCategory {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 100%;
-}
 
 #addCategory > input {
     width: 100%;
