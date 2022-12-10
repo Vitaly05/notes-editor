@@ -80,8 +80,8 @@ ipcMain.handle('openFile', (e) => {
     })
 })
 
-ipcMain.handle('openConspect', (e, filePath) => {
-    fs.readFile(path.join(__dirname, `${filePath}.consp`), (err, data) => {
+ipcMain.handle('openConspect', (e, category, conspectName) => {
+    fs.readFile(path.join(__dirname, 'conspects', category, `${conspectName}.consp`), (err, data) => {
         if (err) {
             console.error(err)
         } else {
@@ -90,25 +90,25 @@ ipcMain.handle('openConspect', (e, filePath) => {
     })
 })
 
-ipcMain.handle('saveConspect', (e, filePath, fileData) => {
-    fs.writeFile(path.join(__dirname, `${filePath}.consp`), fileData, (err) => {
+ipcMain.handle('saveConspect', (e, category, conspectName, fileData) => {
+    fs.writeFile(path.join(__dirname, 'conspects', category,`${conspectName}.consp`), fileData, (err) => {
         if (err) console.error(err)
     })
 })
 
-ipcMain.handle('addCategory', (e, categoryName) => {
-    fs.mkdir(path.join(__dirname, '/conspects/' + categoryName), (err) => {
+ipcMain.handle('addCategory', (e, category) => {
+    fs.mkdir(path.join(__dirname, 'conspects' + category), (err) => {
         if (err) console.error(err)
         else checkDir()
     })
 })
 
-ipcMain.handle('deleteCategory', (e, categoryPath) => {
-    const _categoryPath = path.join(__dirname, categoryPath)
+ipcMain.handle('deleteCategory', (e, category) => {
+    const _categoryPath = path.join(__dirname, 'conspects', category)
 
     const files = fs.readdirSync(_categoryPath)
     files.forEach(file => {
-        fs.unlinkSync(path.join(__dirname, categoryPath, file))
+        fs.unlinkSync(path.join(_categoryPath, file))
     })
         
 
@@ -125,8 +125,8 @@ ipcMain.handle('addConspect', (e, category, conspectName) => {
     })
 })
 
-ipcMain.handle('deleteConspect', (e, conspectPath) => {
-    fs.unlink(path.join(__dirname, conspectPath + '.consp'), (err) => {
+ipcMain.handle('deleteConspect', (e, category, conspectName) => {
+    fs.unlink(path.join(__dirname, 'conspects', category, `${conspectName}.consp`), (err) => {
         if (err) console.error(err)
         else checkDir()
     })
@@ -145,19 +145,15 @@ class NavigationPanel {
     }
 
     getHtml() {
-        return `<div id="categories">${this.getCategoriesHtml('/conspects')}<div id="addCategoryPanel"><button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button></div></div>`
+        return `<div id="categories">${this.getCategoriesHtml()}<div id="addCategoryPanel"><button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button></div></div>`
     }
 
-    getCategoriesHtml(path) {
+    getCategoriesHtml() {
         let html = ''
         this.categories.forEach(category => {
-            html += category.getHtml(path)
+            html += category.getHtml()
         })
         return html
-    }
-
-    logg() {
-        console.log(this.categories)
     }
 }
 class Category {
@@ -168,13 +164,13 @@ class Category {
     addConspect(conspect) {
         this.conspects.push(conspect)
     }
-    getHtml(path) {
-        return `<div class="category"><div class="categoryTitle"><button class="categoryButton">${this.name}</button><button class="deleteCategoryButton" data-categoryPath="${path}/${this.name}" data-name="${this.name}"><i class="fa fa-trash"></i></button></div><div class="conspects">${this.getConspectsHtml(`${path}/${this.name}`)}<div class="addConspectPanel" data-category="${this.name}"><button class="addConspectButton" data-category="${this.name}"><i class="fa fa-add"></i><p>Новый конспект</p></button></div></div></div>`
+    getHtml() {
+        return `<div class="category"><div class="categoryTitle"><button class="categoryButton">${this.name}</button><button class="deleteCategoryButton" data-category="${this.name}"><i class="fa fa-trash"></i></button></div><div class="conspects">${this.getConspectsHtml()}<div class="addConspectPanel" data-category="${this.name}"><button class="addConspectButton" data-category="${this.name}"><i class="fa fa-add"></i><p>Новый конспект</p></button></div></div></div>`
     }
-    getConspectsHtml(path) {
+    getConspectsHtml() {
         let html = ''
         this.conspects.forEach(conspect => {
-            html += conspect.getHtml(path, this.name)
+            html += conspect.getHtml(this.name)
         })
         return html
     }
@@ -183,8 +179,8 @@ class Conspect {
     constructor(name) {
         this.name = name
     }
-    getHtml(path, category) {
-        return `<div class="conspect"><button class="deleteConspectButton" data-conspectPath="${path}/${this.name}" data-name="${this.name}" data-category="${category}"><i class="fa fa-trash"></i></button><button class="conspectButton" data-filePath="${path}/${this.name}" data-name="${this.name}" data-category="${category}">${this.name}</button></div>`
+    getHtml(category) {
+        return `<div class="conspect"><button class="deleteConspectButton" data-name="${this.name}" data-category="${category}"><i class="fa fa-trash"></i></button><button class="conspectButton" data-name="${this.name}" data-category="${category}">${this.name}</button></div>`
     }
 }
 

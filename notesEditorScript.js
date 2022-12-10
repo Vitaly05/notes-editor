@@ -28,7 +28,6 @@ const defaultName = 'Новый конспект'
 const defaultCategory = 'Новая категория'
 
 let selectedConspect = {
-    Path: '',
     Name: '',
     Category: ''
 }
@@ -49,7 +48,7 @@ saveAsButton.addEventListener('click', () => {
 })
 
 saveButton.addEventListener('click', () => {
-    ipcRenderer.invoke('saveConspect', selectedConspect.Path, canvas.innerHTML)
+    ipcRenderer.invoke('saveConspect', selectedConspect.Category, selectedConspect.Name, canvas.innerHTML)
 })
 
 openFileButton.addEventListener('click', () => {
@@ -72,11 +71,10 @@ ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
 
 function conspectButtonClickListener(button) {
     button.addEventListener('click', () => {
-        selectedConspect.Path = button.dataset['filepath']
         selectedConspect.Name = button.dataset['name']
         selectedConspect.Category = button.dataset['category']
 
-        ipcRenderer.invoke('openConspect', selectedConspect.Path)
+        ipcRenderer.invoke('openConspect', selectedConspect.Category, selectedConspect.Name)
     })
 }
 
@@ -94,9 +92,9 @@ function addCategoryButtonClickListener() {
 function deleteCategoryButtonClickListener() {
     document.querySelectorAll('.deleteCategoryButton').forEach(button => {
         button.addEventListener('click', () => {
-            ipcRenderer.invoke('deleteCategory', button.dataset['categorypath'])
+            ipcRenderer.invoke('deleteCategory', button.dataset['category'])
 
-            if (button.dataset['name'] == selectedConspect.Category) {
+            if (button.dataset['category'] == selectedConspect.Category) {
                 resetSelectedConspect()
             }
         })
@@ -144,7 +142,7 @@ function addConspectButtonClickListener() {
 function deleteConspectButtonClickListener() {
     document.querySelectorAll('.deleteConspectButton').forEach(button => {
         button.addEventListener('click', () => {
-            ipcRenderer.invoke('deleteConspect', button.dataset['conspectpath'])
+            ipcRenderer.invoke('deleteConspect', button.dataset['category'], button.dataset['name'])
 
             if (button.dataset['name'] == selectedConspect.Name) {
                 resetSelectedConspect()
@@ -192,7 +190,6 @@ function addConspect_SaveButtonClickListener() {
 
             selectedConspect.Name = newConspectName
             selectedConspect.Category = newConspectCategory
-            selectedConspect.Path = `conspects/${newConspectCategory}/${newConspectName}`
             console.log(selectedConspect)
             conspectName.innerText = selectedConspect.Name
         })
@@ -240,7 +237,6 @@ function showAddConspectPanel(showPanel, category) {
 
 function resetSelectedConspect() {
     selectedConspect.Name = defaultName
-    selectedConspect.Path = ''
     selectedConspect.Category = defaultCategory
 
     conspectName.innerText = selectedConspect.Name
