@@ -92,15 +92,6 @@ function addCategory_CancelButtonClickListener() {
         showAddCategoryPanel(false)
 
         addCategoryButtonClickListener()
-        deleteCategoryButtonClickListener()
-    })
-}
-
-function deleteConspectButtonClickListener() {
-    document.querySelectorAll('.deleteConspectButton').forEach(button => {
-        button.addEventListener('click', () => {
-            ipcRenderer.invoke('deleteConspect', button.dataset['conspectpath'])
-        })
     })
 }
 
@@ -118,7 +109,6 @@ function addCategory_SaveButtonClickListener() {
         showAddCategoryPanel(false)
 
         addCategoryButtonClickListener()
-        deleteCategoryButtonClickListener()
     })
 }
 
@@ -135,13 +125,20 @@ function addConspectButtonClickListener() {
     })
 }
 
+function deleteConspectButtonClickListener() {
+    document.querySelectorAll('.deleteConspectButton').forEach(button => {
+        button.addEventListener('click', () => {
+            ipcRenderer.invoke('deleteConspect', button.dataset['conspectpath'])
+        })
+    })
+}
+
 function addConspect_CancelButtonClickListener() {
     document.querySelectorAll('.addConspect_CancelButton').forEach(button => {
         button.addEventListener('click', () => {
             showAddConspectPanel(false, button.dataset['category'])
     
             addConspectButtonClickListener()
-            //deleteConspectButtonClickListener()
         })
     })
 }
@@ -166,7 +163,6 @@ function addConspect_SaveButtonClickListener() {
             showAddConspectPanel(false, button.dataset['category'])
     
             addConspectButtonClickListener()
-            //deleteConspectButtonClickListener()
         })
     })
 }
