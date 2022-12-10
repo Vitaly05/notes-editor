@@ -104,7 +104,7 @@ ipcMain.handle('addCategory', (e, categoryName) => {
     })
 })
 
-ipcMain.handle('deleteCategory', async (e, categoryPath) => {
+ipcMain.handle('deleteCategory', (e, categoryPath) => {
     const _categoryPath = path.join(__dirname, categoryPath)
 
     const files = fs.readdirSync(_categoryPath)

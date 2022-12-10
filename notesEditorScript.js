@@ -58,6 +58,7 @@ ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
     deleteCategoryButtonClickListener()
 
     addConspectButtonClickListener()
+    deleteConspectButtonClickListener()
 })
 
 function conspectButtonClickListener(button) {
@@ -95,7 +96,7 @@ function addCategory_CancelButtonClickListener() {
     })
 }
 
-function deleteCategoryButtonClickListener() {
+function deleteConspectButtonClickListener() {
     document.querySelectorAll('.deleteConspectButton').forEach(button => {
         button.addEventListener('click', () => {
             ipcRenderer.invoke('deleteConspect', button.dataset['conspectpath'])
