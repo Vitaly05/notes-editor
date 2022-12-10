@@ -75,6 +75,7 @@ function conspectButtonClickListener(button) {
         selectedConspect.Path = button.dataset['filepath']
         selectedConspect.Name = button.dataset['name']
         selectedConspect.Category = button.dataset['category']
+
         ipcRenderer.invoke('openConspect', selectedConspect.Path)
     })
 }
@@ -166,22 +167,34 @@ function addConspect_SaveButtonClickListener() {
     document.querySelectorAll('.addConspect_SaveButton').forEach(button => {
         button.addEventListener('click', () => {
             let addConspectInput
+            let newConspectCategory = button.dataset['category']
             document.querySelectorAll('.addConspectInput').forEach(input => {
-                if (input.dataset['category'] == button.dataset['category']) {
+                if (input.dataset['category'] == newConspectCategory) {
                     addConspectInput = input
                 }
             })
-            if (addConspectInput == null || addConspectInput.value.trim() == '') {
+
+            let newConspectName = addConspectInput.value.trim()
+
+            if (addConspectInput == null || newConspectName == '') {
                 console.log('incorrect name')
                 return
             }
     
-            ipcRenderer.invoke('addConspect', button.dataset['category'], addConspectInput.value.trim())
+            ipcRenderer.invoke('addConspect', newConspectCategory, newConspectName)
+            
     
-    
-            showAddConspectPanel(false, button.dataset['category'])
+            showAddConspectPanel(false, newConspectCategory)
     
             addConspectButtonClickListener()
+
+            canvas.innerHTML = ''
+
+            selectedConspect.Name = newConspectName
+            selectedConspect.Category = newConspectCategory
+            selectedConspect.Path = `conspects/${newConspectCategory}/${newConspectName}`
+            console.log(selectedConspect)
+            conspectName.innerText = selectedConspect.Name
         })
     })
 }
