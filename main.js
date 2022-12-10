@@ -169,12 +169,12 @@ class Category {
         this.conspects.push(conspect)
     }
     getHtml(path) {
-        return `<div class="category"><div class="categoryTitle"><button class="categoryButton">${this.name}</button><button class="deleteCategoryButton" data-categoryPath="${path}/${this.name}"><i class="fa fa-trash"></i></button></div><div class="conspects">${this.getConspectsHtml(`${path}/${this.name}`)}<div class="addConspectPanel" data-category="${this.name}"><button class="addConspectButton" data-category="${this.name}"><i class="fa fa-add"></i><p>Новый конспект</p></button></div></div></div>`
+        return `<div class="category"><div class="categoryTitle"><button class="categoryButton">${this.name}</button><button class="deleteCategoryButton" data-categoryPath="${path}/${this.name}" data-name="${this.name}"><i class="fa fa-trash"></i></button></div><div class="conspects">${this.getConspectsHtml(`${path}/${this.name}`)}<div class="addConspectPanel" data-category="${this.name}"><button class="addConspectButton" data-category="${this.name}"><i class="fa fa-add"></i><p>Новый конспект</p></button></div></div></div>`
     }
     getConspectsHtml(path) {
         let html = ''
         this.conspects.forEach(conspect => {
-            html += conspect.getHtml(path)
+            html += conspect.getHtml(path, this.name)
         })
         return html
     }
@@ -183,8 +183,8 @@ class Conspect {
     constructor(name) {
         this.name = name
     }
-    getHtml(path) {
-        return `<div class="conspect"><button class="deleteConspectButton" data-conspectPath="${path}/${this.name}"><i class="fa fa-trash"></i></button><button class="conspectButton" data-filePath="${path}/${this.name}">${this.name}</button></div>`
+    getHtml(path, category) {
+        return `<div class="conspect"><button class="deleteConspectButton" data-conspectPath="${path}/${this.name}" data-name="${this.name}" data-category="${category}"><i class="fa fa-trash"></i></button><button class="conspectButton" data-filePath="${path}/${this.name}" data-name="${this.name}" data-category="${category}">${this.name}</button></div>`
     }
 }
 

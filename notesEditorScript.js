@@ -15,6 +15,8 @@ let openFileButton = document.getElementById('openFileButton')
 
 
 let canvas = document.getElementById('canvas')
+let conspectName = document.getElementById('conspectName')
+
 let navigationPanel = document.getElementById('navigationPanel')
 
 
@@ -22,7 +24,14 @@ let navigationPanel = document.getElementById('navigationPanel')
 
 // VARIABLES
 
-let selectedConspectPath
+const defaultName = 'Новый конспект'
+const defaultCategory = 'Новая категория'
+
+let selectedConspect = {
+    Path: '',
+    Name: '',
+    Category: ''
+}
 
 
 
@@ -40,7 +49,7 @@ saveAsButton.addEventListener('click', () => {
 })
 
 saveButton.addEventListener('click', () => {
-    ipcRenderer.invoke('saveConspect', selectedConspectPath, canvas.innerHTML)
+    ipcRenderer.invoke('saveConspect', selectedConspect.Path, canvas.innerHTML)
 })
 
 openFileButton.addEventListener('click', () => {
@@ -63,8 +72,10 @@ ipcRenderer.on('navigationHtml', (e, navigationHtml) => {
 
 function conspectButtonClickListener(button) {
     button.addEventListener('click', () => {
-        selectedConspectPath = button.dataset['filepath']
-        ipcRenderer.invoke('openConspect', selectedConspectPath)
+        selectedConspect.Path = button.dataset['filepath']
+        selectedConspect.Name = button.dataset['name']
+        selectedConspect.Category = button.dataset['category']
+        ipcRenderer.invoke('openConspect', selectedConspect.Path)
     })
 }
 
@@ -83,6 +94,10 @@ function deleteCategoryButtonClickListener() {
     document.querySelectorAll('.deleteCategoryButton').forEach(button => {
         button.addEventListener('click', () => {
             ipcRenderer.invoke('deleteCategory', button.dataset['categorypath'])
+
+            if (button.dataset['name'] == selectedConspect.Category) {
+                resetSelectedConspect()
+            }
         })
     })
 }
@@ -129,6 +144,10 @@ function deleteConspectButtonClickListener() {
     document.querySelectorAll('.deleteConspectButton').forEach(button => {
         button.addEventListener('click', () => {
             ipcRenderer.invoke('deleteConspect', button.dataset['conspectpath'])
+
+            if (button.dataset['name'] == selectedConspect.Name) {
+                resetSelectedConspect()
+            }
         })
     })
 }
@@ -174,6 +193,7 @@ function addConspect_SaveButtonClickListener() {
 
 ipcRenderer.on('setCanvasData', (e, fileContent) => {
     canvas.innerHTML = fileContent
+    conspectName.innerText = selectedConspect.Name
 })
 
 
@@ -203,4 +223,13 @@ function showAddConspectPanel(showPanel, category) {
             }
         })
     }
+}
+
+function resetSelectedConspect() {
+    selectedConspect.Name = defaultName
+    selectedConspect.Path = ''
+    selectedConspect.Category = defaultCategory
+
+    conspectName.innerText = selectedConspect.Name
+    canvas.innerHTML = ''
 }
