@@ -76,7 +76,8 @@ body {
 
 #canvas {
     padding: 10px;
-    min-height: 70vh;
+    height: 70vh;
+    overflow-y: auto;
 
     box-shadow: 0 10px 10px grey;
     transition: box-shadow 0.5s ease 0s;
