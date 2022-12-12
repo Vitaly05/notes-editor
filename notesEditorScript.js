@@ -28,8 +28,8 @@ const defaultName = 'Новый конспект'
 const defaultCategory = 'Новая категория'
 
 let selectedConspect = {
-    Name: '',
-    Category: ''
+    Name: defaultName,
+    Category: defaultCategory
 }
 
 

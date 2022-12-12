@@ -91,8 +91,14 @@ ipcMain.handle('openConspect', (e, category, conspectName) => {
 })
 
 ipcMain.handle('saveConspect', (e, category, conspectName, fileData) => {
-    fs.writeFile(path.join(__dirname, 'conspects', category,`${conspectName}.consp`), fileData, (err) => {
-        if (err) console.error(err)
+    fs.stat(path.join(__dirname, 'conspects', category), (err) => {
+        if (err?.code == 'ENOENT') {
+            fs.mkdirSync(path.join(__dirname, 'conspects', category))
+        }
+        fs.writeFile(path.join(__dirname, 'conspects', category,`${conspectName}.consp`), fileData, (err) => {
+            if (err) console.error(err)
+            else checkDir()
+        })
     })
 })
 
