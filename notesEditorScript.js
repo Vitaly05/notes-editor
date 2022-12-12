@@ -16,6 +16,7 @@ let openFileButton = document.getElementById('openFileButton')
 
 let canvas = document.getElementById('canvas')
 let conspectName = document.getElementById('conspectName')
+let categoryName = document.getElementById('categoryName')
 
 let navigationPanel = document.getElementById('navigationPanel')
 
@@ -25,13 +26,20 @@ let navigationPanel = document.getElementById('navigationPanel')
 // VARIABLES
 
 const defaultName = 'Новый конспект'
-const defaultCategory = 'Новая категория'
+const defaultCategory = 'Категория без названия'
 
 let selectedConspect = {
     Name: defaultName,
     Category: defaultCategory
 }
 
+
+
+
+// SET DEFAULT VALUES
+
+conspectName.value = selectedConspect.Name
+categoryName.value = selectedConspect.Category
 
 
 
@@ -45,6 +53,14 @@ toolButtons.forEach(button => {
 
 saveAsButton.addEventListener('click', () => {
     ipcRenderer.invoke('saveFileAs', canvas.innerHTML)
+})
+
+conspectName.addEventListener('input', () => {
+    selectedConspect.Name = conspectName.value
+})
+
+categoryName.addEventListener('input', () => {
+    selectedConspect.Category = categoryName.value
 })
 
 saveButton.addEventListener('click', () => {
@@ -188,10 +204,10 @@ function addConspect_SaveButtonClickListener() {
 
             canvas.innerHTML = ''
 
-            selectedConspect.Name = newConspectName
-            selectedConspect.Category = newConspectCategory
+            
             console.log(selectedConspect)
-            conspectName.innerText = selectedConspect.Name
+            conspectName.value = selectedConspect.Name = newConspectName
+            categoryName.value = selectedConspect.Category = newConspectCategory
         })
     })
 }
@@ -203,7 +219,8 @@ function addConspect_SaveButtonClickListener() {
 
 ipcRenderer.on('setCanvasData', (e, fileContent) => {
     canvas.innerHTML = fileContent
-    conspectName.innerText = selectedConspect.Name
+    conspectName.value = selectedConspect.Name
+    categoryName.value = selectedConspect.Category
 })
 
 
@@ -236,9 +253,7 @@ function showAddConspectPanel(showPanel, category) {
 }
 
 function resetSelectedConspect() {
-    selectedConspect.Name = defaultName
-    selectedConspect.Category = defaultCategory
-
-    conspectName.innerText = selectedConspect.Name
+    conspectName.value = selectedConspect.Name = defaultName
+    categoryName.value = selectedConspect.Category = defaultCategory
     canvas.innerHTML = ''
 }
