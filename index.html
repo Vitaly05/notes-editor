@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="./font-awesome/css/all.css" />
 </head>
 
 <body>
@@ -25,40 +25,89 @@
         </div>
         <div id="editor">
             <div id="tools">
-                <button class="toolButton" id="boldButton" 
-                data-element="bold"
-                accesskey="B"
-                tabindex="-1">
+                <select name="fonts" id="fonts">
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+                <select name="fontSize" id="fontSize">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected="selected"s>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+                <input type="color" id="foregroundInput" name="foreground" value="#000000" />
+                <input type="color" id="backgroundInput" name="background" value="#000000" />
+                <button class="toolButton"
+                    data-command="insertHorizontalRule"
+                    tabindex="-1">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button class="toolButton"
+                    id="insertImageButton"
+                    tabindex="-1">
+                    <i class="fa fa-image"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="insertOrderedList"
+                    tabindex="-1">
+                    <i class="fa fa-list-ol"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="insertUnorderedList"
+                    tabindex="-1">
+                    <i class="fa fa-list"></i>
+                </button>
+                <button class="toolButton" id="boldButton"
+                    data-command="bold"
+                    accesskey="B"
+                    tabindex="-1">
                     <i class="fa fa-bold"></i>
                 </button>
                 <button class="toolButton" id="italicButton" 
-                data-element="italic"
-                accesskey="I"
-                tabindex="-1">
-                <i class="fa fa-italic"></i>
-            </button>
-                <button class="toolButton" id="hiliteColorButton" 
-                data-element="hiliteColor" 
-                data-param="yellow"
-                tabindex="-1">
-                Set yellow
-            </button>
-                <button class="toolButton" id="hiliteColorButton" 
-                data-element="hiliteColor" 
-                data-param="white"
-                tabindex="-1">
-                Set white
-            </button>
-                <button class="toolButton" id="indentButton" 
-                data-element="indent"
-                tabindex="-1">
-                Indent
-            </button>
-                <button class="toolButton" id="outdentButton" 
-                data-element="outdent"
-                tabindex="-1">
-                outdent
-            </button>
+                    data-command="italic"
+                    accesskey="I"
+                    tabindex="-1">
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyLeft">
+                    <i class="fa fa-align-left"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyCenter">
+                    <i class="fa fa-align-center"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyRight">
+                    <i class="fa fa-align-right"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyFull">
+                    <i class="fa fa-align-justify"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="removeFormat">
+                    <i class="fa fa-eraser"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="strikeThrough">
+                    <i class="fa fa-strikethrough"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="subscript">
+                    <i class="fa fa-subscript"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="superscript">
+                    <i class="fa fa-superscript"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="underline">
+                    <i class="fa fa-underline"></i>
+                </button>
             </div>
             <div id="canvas" contenteditable="true"></div>
         </div>

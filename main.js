@@ -84,6 +84,21 @@ ipcMain.handle('openFile', (e) => {
     })
 })
 
+ipcMain.handle('openImage', (e) => {
+    dialog.showOpenDialog(mainWindow, {
+        title: 'Выбор изображения',
+        filters: [
+            { name: 'jpg', extensions: ['jpg'] },
+            { name: 'png', extensions: ['png'] }
+        ],
+        properties: ['openFile']
+    }).then(result => {
+        if (!result.canceled) {
+            e.sender.send('insertImage', result.filePaths[0])
+        }
+    })
+})
+
 ipcMain.handle('openConspect', (e, category, conspectName) => {
     fs.readFile(path.join(__dirname, 'conspects', category, `${conspectName}.consp`), (err, data) => {
         if (err) {

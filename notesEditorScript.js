@@ -9,6 +9,12 @@ ipcRenderer.invoke('checkDir')
 // ELEMENTS
 
 let toolButtons = document.querySelectorAll('.toolButton')
+let fontSelector = document.getElementById('fonts')
+let fontSizeSelector = document.getElementById('fontSize')
+let foregroundInput = document.getElementById('foregroundInput')
+let backgroundInput = document.getElementById('backgroundInput')
+let imageInputButton = document.getElementById('insertImageButton')
+
 let saveAsButton = document.getElementById('saveAsButton')
 let saveButton = document.getElementById('saveButton')
 let openFileButton = document.getElementById('openFileButton')
@@ -47,8 +53,28 @@ categoryName.value = selectedConspect.Category
 
 toolButtons.forEach(button => {
     button.addEventListener('click', () => {
-        document.execCommand(button.dataset['element'], false, button.dataset['param'])
+        document.execCommand(button.dataset['command'], false, button.dataset['param'])
     })
+})
+
+fontSelector.addEventListener('change', () => {
+    const selectedIndex = fontSelector.selectedIndex
+    const selectedFont = fontSelector.options[selectedIndex].value
+    document.execCommand('fontName', false, selectedFont)
+})
+fontSizeSelector.addEventListener('change', () => {
+    const selectedIndex = fontSizeSelector.selectedIndex
+    const selectedSize = fontSizeSelector.options[selectedIndex].value
+    document.execCommand('fontSize', false, selectedSize)
+})
+foregroundInput.addEventListener('input', () => {
+    document.execCommand('foreColor', false, foregroundInput.value)
+})
+backgroundInput.addEventListener('input', () => {
+    document.execCommand('hiliteColor', false, backgroundInput.value)
+})
+insertImageButton.addEventListener('click', () => {
+    ipcRenderer.invoke('openImage')
 })
 
 saveAsButton.addEventListener('click', () => {
@@ -221,6 +247,10 @@ ipcRenderer.on('setCanvasData', (e, fileContent) => {
     canvas.innerHTML = fileContent
     conspectName.value = selectedConspect.Name
     categoryName.value = selectedConspect.Category
+})
+
+ipcRenderer.on('insertImage', (e, imagePath) => {
+    document.execCommand('insertImage', false, imagePath)
 })
 
 
