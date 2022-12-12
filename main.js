@@ -8,12 +8,16 @@ const createWindow = () => {
     mainWindow = new BrowserWindow({
         width: 1200,
         height: 1000,
+        minWidth: 1020,
+        minHeight: 700,
+
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
         }
     })
 
+    mainWindow.setMenuBarVisibility(false)
 
     mainWindow.loadFile('index.html')
     mainWindow.webContents.openDevTools()
