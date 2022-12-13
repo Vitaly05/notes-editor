@@ -38,17 +38,62 @@
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
-                <input type="color" id="foregroundInput" name="foreground" value="#000000" />
-                <input type="color" id="backgroundInput" name="background" value="#000000" />
                 <button class="toolButton"
-                    data-command="insertHorizontalRule"
+                    data-command="bold"
+                    accesskey="B"
                     tabindex="-1">
-                    <i class="fa fa-minus"></i>
+                    <i class="fa fa-bold"></i>
                 </button>
                 <button class="toolButton"
-                    id="insertImageButton"
+                    data-command="italic"
+                    accesskey="I"
                     tabindex="-1">
-                    <i class="fa fa-image"></i>
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="underline"
+                    accesskey="U"
+                    tabindex="-1">
+                    <i class="fa fa-underline"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="strikeThrough"
+                    tabindex="-1">
+                    <i class="fa fa-strikethrough"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="subscript"
+                    tabindex="-1">
+                    <i class="fa fa-subscript"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="superscript"
+                    tabindex="-1">
+                    <i class="fa fa-superscript"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyLeft"
+                    accesskey="L"
+                    tabindex="-1">
+                    <i class="fa fa-align-left"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyCenter"
+                    accesskey="E"
+                    tabindex="-1">
+                    <i class="fa fa-align-center"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyRight"
+                    accesskey="R"
+                    tabindex="-1">
+                    <i class="fa fa-align-right"></i>
+                </button>
+                <button class="toolButton"
+                    data-command="justifyFull"
+                    accesskey="J"
+                    tabindex="-1">
+                    <i class="fa fa-align-justify"></i>
                 </button>
                 <button class="toolButton"
                     data-command="insertOrderedList"
@@ -60,53 +105,26 @@
                     tabindex="-1">
                     <i class="fa fa-list"></i>
                 </button>
-                <button class="toolButton" id="boldButton"
-                    data-command="bold"
-                    accesskey="B"
+                <button class="toolButton"
+                    data-command="insertHorizontalRule"
                     tabindex="-1">
-                    <i class="fa fa-bold"></i>
+                    <i class="fa fa-minus"></i>
                 </button>
-                <button class="toolButton" id="italicButton" 
-                    data-command="italic"
-                    accesskey="I"
+                <button class="toolButton"
+                    id="insertImageButton"
                     tabindex="-1">
-                    <i class="fa fa-italic"></i>
+                    <i class="fa fa-image"></i>
                 </button>
                 <button class="toolButton"
-                    data-command="justifyLeft">
-                    <i class="fa fa-align-left"></i>
+                    data-command="hiliteColor"
+                    data-param="yellow"
+                    tabindex="-1">
+                    <i class="fa fa-paint-roller"></i>
                 </button>
                 <button class="toolButton"
-                    data-command="justifyCenter">
-                    <i class="fa fa-align-center"></i>
-                </button>
-                <button class="toolButton"
-                    data-command="justifyRight">
-                    <i class="fa fa-align-right"></i>
-                </button>
-                <button class="toolButton"
-                    data-command="justifyFull">
-                    <i class="fa fa-align-justify"></i>
-                </button>
-                <button class="toolButton"
-                    data-command="removeFormat">
+                    data-command="removeFormat"
+                    tabindex="-1">
                     <i class="fa fa-eraser"></i>
-                </button>
-                <button class="toolButton"
-                    data-command="strikeThrough">
-                    <i class="fa fa-strikethrough"></i>
-                </button>
-                <button class="toolButton"
-                    data-command="subscript">
-                    <i class="fa fa-subscript"></i>
-                </button>
-                <button class="toolButton"
-                    data-command="superscript">
-                    <i class="fa fa-superscript"></i>
-                </button>
-                <button class="toolButton"
-                    data-command="underline">
-                    <i class="fa fa-underline"></i>
                 </button>
             </div>
             <div id="canvas" contenteditable="true"></div>
