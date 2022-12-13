@@ -133,17 +133,27 @@ ipcMain.handle('addCategory', (e, category) => {
 })
 
 ipcMain.handle('deleteCategory', (e, category) => {
-    const _categoryPath = path.join(__dirname, 'conspects', category)
+    dialog.showMessageBox(mainWindow, {
+        type: 'question',
+        title: 'Удаление категории',
+        message: `Вы уверены, что хотите удалить категорию "${category}"?`,
+        buttons: [ 'Yes', 'Cancel'],
+        cancelId: 1
+    }).then(result => {
+        if (result.response == 0) {
+            const _categoryPath = path.join(__dirname, 'conspects', category)
 
-    const files = fs.readdirSync(_categoryPath)
-    files.forEach(file => {
-        fs.unlinkSync(path.join(_categoryPath, file))
-    })
-        
+            const files = fs.readdirSync(_categoryPath)
+            files.forEach(file => {
+                fs.unlinkSync(path.join(_categoryPath, file))
+            })
+                
 
-    fs.rmdir(_categoryPath, (err) => {
-        if (err) console.error(err)
-        else checkDir()
+            fs.rmdir(_categoryPath, (err) => {
+                if (err) console.error(err)
+                else checkDir()
+            })
+        }
     })
 })
 
@@ -155,9 +165,19 @@ ipcMain.handle('addConspect', (e, category, conspectName) => {
 })
 
 ipcMain.handle('deleteConspect', (e, category, conspectName) => {
-    fs.unlink(path.join(__dirname, 'conspects', category, `${conspectName}.consp`), (err) => {
-        if (err) console.error(err)
-        else checkDir()
+    dialog.showMessageBox(mainWindow, {
+        type: 'question',
+        title: 'Удаление конспекта',
+        message: `Вы уверены, что хотите удалить конспект "${conspectName}" из категории "${category}"?`,
+        buttons: [ 'Yes', 'Cancel'],
+        cancelId: 1
+    }).then(result => {
+        if (result.response == 0) {
+            fs.unlink(path.join(__dirname, 'conspects', category, `${conspectName}.consp`), (err) => {
+                if (err) console.error(err)
+                else checkDir()
+            })
+        }
     })
 })
 
