@@ -88,8 +88,7 @@ ipcMain.handle('openImage', (e) => {
     dialog.showOpenDialog(mainWindow, {
         title: 'Выбор изображения',
         filters: [
-            { name: 'jpg', extensions: ['jpg'] },
-            { name: 'png', extensions: ['png'] }
+            { name: 'Images', extensions: ['jpg', 'png'] }
         ],
         properties: ['openFile']
     }).then(result => {

@@ -251,6 +251,11 @@ ipcRenderer.on('setCanvasData', (e, fileContent) => {
 
 ipcRenderer.on('insertImage', (e, imagePath) => {
     document.execCommand('insertImage', false, imagePath)
+
+    const images = canvas.getElementsByTagName('img')
+    for (const img of images) {
+        img.style.maxWidth = 95 + '%'
+    }
 })
 
 
