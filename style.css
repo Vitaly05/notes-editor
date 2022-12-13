@@ -19,10 +19,14 @@ body {
 
 
 #workingArea {
-    padding: 5%;
-    height: 100%;
-    margin-left: 30%;
+    padding: 2%;
+    height: 90%;
+    margin-left: 20%;
     box-sizing: border-box;
+}
+
+#editor {
+    height: 100%;
 }
 
 #fileButtons {
@@ -49,10 +53,6 @@ body {
 }
 .title > input {
     text-align: center;
-}
-
-#editor {
-    min-height: 100%;
 }
 
 #tools {
@@ -89,7 +89,7 @@ input[type="color"]::-webkit-color-swatch {
 
 #canvas {
     padding: 10px;
-    height: 70vh;
+    height: 90%;
     overflow-y: auto;
 
     font-family: Arial;
@@ -109,7 +109,7 @@ input[type="color"]::-webkit-color-swatch {
 
 
 #navigationPanel {
-    width: 30%;
+    width: 20%;
     height: 100%;
     position: fixed;
     overflow-x: hidden;
@@ -161,6 +161,9 @@ input[type="color"]::-webkit-color-swatch {
     list-style: none;
     margin-bottom: 1%;
     direction: rtl;
+
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 .conspectButton {
