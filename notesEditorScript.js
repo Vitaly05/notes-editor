@@ -11,9 +11,7 @@ ipcRenderer.invoke('checkDir')
 let toolButtons = document.querySelectorAll('.toolButton')
 let fontSelector = document.getElementById('fonts')
 let fontSizeSelector = document.getElementById('fontSize')
-let foregroundInput = document.getElementById('foregroundInput')
-let backgroundInput = document.getElementById('backgroundInput')
-let imageInputButton = document.getElementById('insertImageButton')
+let insertImageButton = document.getElementById('insertImageButton')
 
 let saveAsButton = document.getElementById('saveAsButton')
 let saveButton = document.getElementById('saveButton')
@@ -66,12 +64,6 @@ fontSizeSelector.addEventListener('change', () => {
     const selectedIndex = fontSizeSelector.selectedIndex
     const selectedSize = fontSizeSelector.options[selectedIndex].value
     document.execCommand('fontSize', false, selectedSize)
-})
-foregroundInput.addEventListener('input', () => {
-    document.execCommand('foreColor', false, foregroundInput.value)
-})
-backgroundInput.addEventListener('input', () => {
-    document.execCommand('hiliteColor', false, backgroundInput.value)
 })
 insertImageButton.addEventListener('click', () => {
     ipcRenderer.invoke('openImage')

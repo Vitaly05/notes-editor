@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, globalShortcut } = require('electron');
 const fs = require('fs')
 const path = require('path')
 
@@ -25,6 +25,8 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
     createWindow();
+
+    globalShortcut.unregisterAll()
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
