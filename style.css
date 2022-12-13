@@ -3,6 +3,10 @@ body {
     margin: 0;
 }
 
+* {
+    font-family: Arial;
+}
+
 *::-webkit-scrollbar {
     width: 12px;
 }
