@@ -75,6 +75,14 @@ body {
     background-color: rgb(221, 221, 221);
 }
 
+select {
+    border: none;
+    border-radius: 10px;
+}
+select:focus {
+    outline: none;
+}
+
 #canvas {
     padding: 10px;
     height: 90%;
