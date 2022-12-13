@@ -250,6 +250,19 @@ ipcRenderer.on('insertImage', (e, imagePath) => {
     }
 })
 
+ipcRenderer.on('justifyLeft', (e) => {
+    document.execCommand('justifyLeft', false, null)
+})
+ipcRenderer.on('justifyCenter', (e) => {
+    document.execCommand('justifyCenter', false, null)
+})
+ipcRenderer.on('justifyRight', (e) => {
+    document.execCommand('justifyRight', false, null)
+})
+ipcRenderer.on('saveConspect', () => {
+    ipcRenderer.invoke('saveConspect', selectedConspect.Category, selectedConspect.Name, canvas.innerHTML)
+})
+
 
 
 

@@ -26,13 +26,13 @@ const createWindow = () => {
 app.whenReady().then(() => {
     createWindow();
 
-    globalShortcut.unregisterAll()
-
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
         }
     })
+
+    setShortcuts()
 });
 
 app.on('window-all-closed', () => {
@@ -157,6 +157,22 @@ ipcMain.handle('deleteConspect', (e, category, conspectName) => {
         else checkDir()
     })
 })
+
+
+function setShortcuts() {
+    globalShortcut.register('CommandOrControl+L', () => {
+        mainWindow.webContents.send('justifyLeft')
+    })
+    globalShortcut.register('CommandOrControl+E', () => {
+        mainWindow.webContents.send('justifyCenter')
+    })
+    globalShortcut.register('CommandOrControl+R', () => {
+        mainWindow.webContents.send('justifyRight')
+    })
+    globalShortcut.register('CommandOrControl+S', () => {
+        mainWindow.webContents.send('saveConspect')
+    })
+}
 
 
 
