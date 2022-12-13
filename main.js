@@ -10,6 +10,8 @@ const createWindow = () => {
         height: 1000,
         minWidth: 1020,
         minHeight: 700,
+        
+        title: 'Электнонные конспекты',
 
         webPreferences: {
             nodeIntegration: true,
@@ -18,9 +20,10 @@ const createWindow = () => {
     })
 
     mainWindow.setMenuBarVisibility(false)
+    mainWindow.setIcon(path.join(__dirname, 'res', 'icon.ico'))
 
     mainWindow.loadFile('index.html')
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 };
 
 app.whenReady().then(() => {
