@@ -21,6 +21,7 @@ let openFileButton = document.getElementById('openFileButton')
 let canvas = document.getElementById('canvas')
 let conspectName = document.getElementById('conspectName')
 let categoryName = document.getElementById('categoryName')
+let nonSaveIndicator = document.getElementById('nonSaveIndicator')
 
 let navigationPanel = document.getElementById('navigationPanel')
 
@@ -231,6 +232,12 @@ function addConspect_SaveButtonClickListener() {
 
 
 
+canvas.addEventListener('input', () => {
+    nonSaveIndicator.hidden = false
+})
+
+
+
 // IPC
 
 ipcRenderer.on('setCanvasData', (e, fileContent) => {
@@ -247,6 +254,7 @@ ipcRenderer.on('setNewFileData', (e, fileContent) => {
     canvas.innerHTML = fileContent
     conspectName.value = selectedConspect.Name = defaultName
     categoryName.value = selectedConspect.Category = defaultCategory
+    nonSaveIndicator.hidden = false
 })
 
 ipcRenderer.on('categoryDeleted', (e, category) => {
@@ -323,7 +331,7 @@ function saveConspect() {
     ipcRenderer.invoke('saveConspect', selectedConspect.Category, selectedConspect.Name, canvas.innerHTML)
 }
 function updateConspect() {
-    console.log('saved')
+    nonSaveIndicator.hidden = true
     ipcRenderer.invoke('updateConspect', selectedConspect.Category, selectedConspect.Name, canvas.innerHTML)
 }
 
