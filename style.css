@@ -1,10 +1,11 @@
 body {
     height: 100vh;
     margin: 0;
+    background-color: #E4E1E1;
 }
 
 * {
-    font-family: Arial;
+    font-family: 'Montserrat', sans-serif;
 }
 
 *::-webkit-scrollbar {
@@ -21,219 +22,189 @@ body {
     border: 3px solid rgb(212, 212, 212);
 }
 
-
-#workingArea {
-    padding: 2%;
-    height: 90%;
-    margin-left: 20%;
-    box-sizing: border-box;
-}
-
-#editor {
-    height: 100%;
-}
-
-#fileButtons {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    margin: 1% 0;
-}
-#fileButtons > button {
+button {
     background-color: transparent;
     border: none;
     border-radius: 10px;
-    padding: 1%;
     transition: background-color 0.5s ease 0s;
 }
-#fileButtons > button:hover {
-    background-color: rgb(232, 232, 232);
-}
-.title {
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.title > input {
-    text-align: center;
+button:hover {
+    background-color: rgb(220, 220, 220);
 }
 
-#tools {
-    padding: 1%;
-    background-color: whitesmoke;
-    border-radius: 10px 10px 0 0;
-    
-    display: flex;
-    justify-content: space-evenly;
-}
 
-.toolButton {
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: transparent;
-    transition: background-color 0.5s ease 0s;
-}
-.toolButton:hover {
-    background-color: rgb(221, 221, 221);
-}
 
-select {
-    border: none;
-    border-radius: 10px;
-}
-select:focus {
-    outline: none;
-}
-
-#canvas {
-    padding: 10px;
-    height: 90%;
-    overflow-y: auto;
-
-    font-family: Arial;
-
-    box-shadow: 0 10px 10px grey;
-    transition: box-shadow 0.5s ease 0s;
-}
-
-#canvas:hover {
-    box-shadow: 0 10px 15px grey;
-}
-
-#canvas:focus {
-    box-shadow: 0 10px 15px grey;
-    outline: none;
-}
 
 
 #navigationPanel {
-    width: 20%;
-    height: 100%;
     position: fixed;
+    width: 25%;
+    height: 100%;
+    
     overflow-x: hidden;
-    border-right: 1px solid grey;
+
+    background-color: #CDC9C9;
 }
 
 .category {
-    margin-bottom: 5%;
-    border-bottom: 1px solid grey;
+    left: 0;
+    right: 0;
+    margin-bottom: 10%;
+
+    padding: 20px;
+
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 10px 4px rgba(0, 0, 0, 0.25);
 }
 
 .categoryTitle {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 23px;
 }
 
-.categoryButton {
-    text-align: left;
-    font-size: 15pt;
-    background-color: transparent;
+.categoryName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.deleteCategoryButton {
+    padding: 8px;
+    margin-left: 10px;
+}
+
+.addConspectPanel {
+    left: 0;
+    right: 0;
+    
+    display: flex;
+    justify-content: center;
+}
+
+.addConspectButton {
+    background-color: rgba(242, 78, 30, 0.76);
     border: none;
-    padding: 5%;
-    font-weight: bold;
 
-    transition: background-color 0.5s ease 0s;
-}
-.categoryButton:hover {
-    background-color: rgb(232, 232, 232);
-}
+    left: 0;
+    right: 0;
 
-.deleteCategoryButton, .deleteConspectButton {
-    background-color: transparent;
-    border: none;
-    padding: 5%;
-    color: rgb(255, 76, 76);
-
-    transition: background-color 0.5s ease 0s;
+    height: 35px;
+    width: 160px;
+    margin-top: 23px;
+    
+    transition: box-shadow 0.5s ease 0s;
 }
-.deleteCategoryButton:hover, .deleteConspectButton:hover {
-    background-color: rgb(232, 232, 232);
+.addConspectButton:hover {
+    background-color: rgba(242, 78, 30, 0.76);
+    box-shadow: 6px 8px 6px rgb(220, 220, 220);
 }
 
-.conspects {
-    width: 90%;
-    margin: 2% 0 5% 5%;
+.addConspectButton > span, .addConspectButton > i {
+    color: white;
 }
 
 .conspect {
-    list-style: none;
-    margin-bottom: 1%;
-    direction: rtl;
-
     display: flex;
-    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-right: 5%;
+    
 }
 
 .conspectButton {
-    text-align: right;
-    padding: 5% 0;
-    background-color: transparent;
-    border: none;
-
-    transition: background-color 0.5s ease 0s;
-}
-.conspectButton:hover {
-    background-color: rgb(232, 232, 232);
-}
-
-
-#addCategoryButton, .addConspectButton {
-    width: 80%;
-    margin: 0 10% 10% 10%;
-    background-color: transparent;
-    color: rgba(108, 108, 108, 0.475);
-    border: none;
     border-radius: 10px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    transition: background-color 0.5s ease 0s;
-}
-#addCategoryButton > i, .addConspectButton > i {
-    margin-right: 10px;
-}
-#addCategoryButton:hover, .addConspectButton:hover {
-    background-color: rgb(232, 232, 232);
-}
-
-
-#addCategory {
-    margin: 1% 5%;
-}
-
-input {
+    padding: 10px 8px;
     width: 100%;
-    font-weight: bold;
-    box-sizing: border-box;
-    padding: 1%;
-    border: 1px solid grey;
-    border-radius: 5px;
+    text-align: left;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 12px;
 }
-input:focus {
-    background-color: rgb(232, 232, 232);
+
+.deleteConspectButton {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    margin-left: 7px;
+    border-radius: 7px;
+}
+.deleteConspectButton > img {
+    width: 15px;
+    height: 15px;
+}
+
+#addCategoryPanel {
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#addCategoryButton {
+    background-color: transparent;
+    border: none;
+    padding: 15px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+}
+#addCategoryButton:hover {
+    background-color: #E4E1E1;
+}
+
+#addCategoryButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addCategoryButton {
+    padding: 5px;
+    
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 12px;
+}
+
+#addCategoryInput {
+    width: 200px;
+    margin-bottom: 10px;
+    text-align: center;
+
+    border-color: #F24E1E;
+    border-radius: 10px;
+}
+#addCategoryInput:focus {
     outline: none;
 }
 
-#addCategoryButtons, .addConspectButtons, .addConspect_CancelButton {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 1%;
+#addCategory_SaveButton {
+    text-align: left;
 }
-
-.addCategoryButton, .addConspectButtons > button {
-    background-color: transparent;
-    border: none;
-    padding: 5px;
-    border-radius: 5px;
-
-    transition: background-color 0.5s ease 0s;
+#addCategory_CancelButton {
+    text-align: right;
 }
-.addCategoryButton:hover, .addConspectButton:hover, .addConspectButtons > button:hover {
-    background-color: rgb(232, 232, 232);
+#addCategory_SaveButton:hover, #addCategory_CancelButton:hover {
+    background-color: #E4E1E1;
 }

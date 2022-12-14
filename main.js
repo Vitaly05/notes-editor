@@ -35,7 +35,7 @@ app.whenReady().then(() => {
         }
     })
 
-    setShortcuts()
+    // setShortcuts()
 });
 
 app.on('window-all-closed', () => {
@@ -235,7 +235,7 @@ class NavigationPanel {
             <div id="addCategoryPanel">
                 <button id="addCategoryButton">
                     <i class="fa fa-add"></i>
-                    <p>Добавить<br />категорию</p>
+                    <span>Добавить категорию</span>
                 </button>
             </div>
         </div>
@@ -262,12 +262,12 @@ class Category {
         return `
         <div class="category">
             <div class="categoryTitle">
-                <button class="categoryButton">
+                <span class="categoryName">
                     ${this.name}
-                </button>
+                </span>
                 <button class="deleteCategoryButton"
                     data-category="${this.name}">
-                    <i class="fa fa-trash"></i>
+                    <img class="deleteIcon" src="./res/deleteIcon.png" />
                 </button>
             </div>
             <div class="conspects">
@@ -277,7 +277,7 @@ class Category {
                     <button class="addConspectButton"
                         data-category="${this.name}">
                         <i class="fa fa-add"></i>
-                        <p>Новый конспект</p>
+                        <span>Новый конспект</span>
                     </button>
                 </div>
             </div>
@@ -299,15 +299,15 @@ class Conspect {
     getHtml(category) {
         return `
         <div class="conspect">
+            <button class="conspectButton"
+                data-name="${this.name}"
+                data-category="${category}">
+                ${this.name}
+            </button>
             <button class="deleteConspectButton"
                 data-name="${this.name}"
                 data-category="${category}">
-                <i class="fa fa-trash"></i>
-            </button>
-            <button class="conspectButton"
-            data-name="${this.name}"
-            data-category="${category}">
-                ${this.name}
+                <img class="deleteIcon" src="./res/deleteIcon.png" />
             </button>
         </div>
         `
