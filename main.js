@@ -23,7 +23,7 @@ const createWindow = () => {
     mainWindow.setIcon(path.join(__dirname, 'res', 'icon.ico'))
 
     mainWindow.loadFile('index.html')
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 };
 
 app.whenReady().then(() => {
@@ -79,7 +79,7 @@ ipcMain.handle('openFile', (e) => {
                 if (err) {
                     console.error(err)
                 } else {
-                    e.sender.send('setCanvasData', data.toString())
+                    e.sender.send('setNewFileData', data.toString())
                 }
             })
 
@@ -125,6 +125,12 @@ ipcMain.handle('saveConspect', (e, category, conspectName, fileData) => {
     })
 })
 
+ipcMain.handle('updateConspect', (e, category, conspectName, fileData) => {
+    fs.writeFile(path.join(__dirname, 'conspects', category,`${conspectName}.consp`), fileData, (err) => {
+        if (err) console.error(err)
+    })
+})
+
 ipcMain.handle('addCategory', (e, category) => {
     fs.mkdir(path.join(__dirname, 'conspects', category), (err) => {
         if (err) {
@@ -158,7 +164,10 @@ ipcMain.handle('deleteCategory', (e, category) => {
 
             fs.rmdir(_categoryPath, (err) => {
                 if (err) console.error(err)
-                else checkDir()
+                else {
+                    checkDir()
+                    e.sender.send('categoryDeleted', category)
+                }
             })
         }
     })
@@ -182,7 +191,10 @@ ipcMain.handle('deleteConspect', (e, category, conspectName) => {
         if (result.response == 0) {
             fs.unlink(path.join(__dirname, 'conspects', category, `${conspectName}.consp`), (err) => {
                 if (err) console.error(err)
-                else checkDir()
+                else {
+                    checkDir()
+                    e.sender.send('conspectDeleted', conspectName)
+                }
             })
         }
     })

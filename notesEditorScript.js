@@ -24,6 +24,8 @@ let categoryName = document.getElementById('categoryName')
 
 let navigationPanel = document.getElementById('navigationPanel')
 
+let autosaveTimer
+
 
 
 
@@ -82,7 +84,8 @@ categoryName.addEventListener('input', () => {
 })
 
 saveButton.addEventListener('click', () => {
-    ipcRenderer.invoke('saveConspect', selectedConspect.Category, selectedConspect.Name, canvas.innerHTML)
+    saveConspect()
+    startAutosaveTimer()
 })
 
 openFileButton.addEventListener('click', () => {
@@ -127,10 +130,6 @@ function deleteCategoryButtonClickListener() {
     document.querySelectorAll('.deleteCategoryButton').forEach(button => {
         button.addEventListener('click', () => {
             ipcRenderer.invoke('deleteCategory', button.dataset['category'])
-
-            if (button.dataset['category'] == selectedConspect.Category) {
-                resetSelectedConspect()
-            }
         })
     })
 }
@@ -157,6 +156,8 @@ function addCategory_SaveButtonClickListener() {
         showAddCategoryPanel(false)
 
         addCategoryButtonClickListener()
+
+        showAddCategoryPanel()
     })
 }
 
@@ -177,10 +178,6 @@ function deleteConspectButtonClickListener() {
     document.querySelectorAll('.deleteConspectButton').forEach(button => {
         button.addEventListener('click', () => {
             ipcRenderer.invoke('deleteConspect', button.dataset['category'], button.dataset['name'])
-
-            if (button.dataset['name'] == selectedConspect.Name) {
-                resetSelectedConspect()
-            }
         })
     })
 }
@@ -223,9 +220,10 @@ function addConspect_SaveButtonClickListener() {
             canvas.innerHTML = ''
 
             
-            console.log(selectedConspect)
             conspectName.value = selectedConspect.Name = newConspectName
             categoryName.value = selectedConspect.Category = newConspectCategory
+
+            startAutosaveTimer()
         })
     })
 }
@@ -239,6 +237,27 @@ ipcRenderer.on('setCanvasData', (e, fileContent) => {
     canvas.innerHTML = fileContent
     conspectName.value = selectedConspect.Name
     categoryName.value = selectedConspect.Category
+
+    startAutosaveTimer()
+})
+
+ipcRenderer.on('setNewFileData', (e, fileContent) => {
+    stopAutosaveTimer()
+
+    canvas.innerHTML = fileContent
+    conspectName.value = selectedConspect.Name = defaultName
+    categoryName.value = selectedConspect.Category = defaultCategory
+})
+
+ipcRenderer.on('categoryDeleted', (e, category) => {
+    if (category == selectedConspect.Category) {
+        resetSelectedConspect()
+    }
+})
+ipcRenderer.on('conspectDeleted', (e, conspect) => {
+    if (conspect == selectedConspect.Name) {
+        resetSelectedConspect()
+    }
 })
 
 ipcRenderer.on('insertImage', (e, imagePath) => {
@@ -293,7 +312,26 @@ function showAddConspectPanel(showPanel, category) {
 }
 
 function resetSelectedConspect() {
+    stopAutosaveTimer()
+
     conspectName.value = selectedConspect.Name = defaultName
     categoryName.value = selectedConspect.Category = defaultCategory
     canvas.innerHTML = ''
+}
+
+function saveConspect() {
+    ipcRenderer.invoke('saveConspect', selectedConspect.Category, selectedConspect.Name, canvas.innerHTML)
+}
+function updateConspect() {
+    console.log('saved')
+    ipcRenderer.invoke('updateConspect', selectedConspect.Category, selectedConspect.Name, canvas.innerHTML)
+}
+
+function startAutosaveTimer() {
+    stopAutosaveTimer()
+    autosaveTimer = setInterval(updateConspect, 1000)
+}
+
+function stopAutosaveTimer() {
+    clearInterval(autosaveTimer)
 }
