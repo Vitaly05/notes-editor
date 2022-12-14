@@ -127,8 +127,15 @@ ipcMain.handle('saveConspect', (e, category, conspectName, fileData) => {
 
 ipcMain.handle('addCategory', (e, category) => {
     fs.mkdir(path.join(__dirname, 'conspects', category), (err) => {
-        if (err) console.error(err)
-        else checkDir()
+        if (err) {
+            if (err.code == 'EEXIST') {
+                dialog.showMessageBox(mainWindow, {
+                    type: 'error',
+                    title: 'Создание категории',
+                    message: 'Такая категория уже существует'
+                })
+            }
+        } else checkDir()
     })
 })
 
