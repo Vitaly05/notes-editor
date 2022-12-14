@@ -229,7 +229,17 @@ class NavigationPanel {
     }
 
     getHtml() {
-        return `<div id="categories">${this.getCategoriesHtml()}<div id="addCategoryPanel"><button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button></div></div>`
+        return `
+        <div id="categories">
+            ${this.getCategoriesHtml()}
+            <div id="addCategoryPanel">
+                <button id="addCategoryButton">
+                    <i class="fa fa-add"></i>
+                    <p>Добавить<br />категорию</p>
+                </button>
+            </div>
+        </div>
+        `
     }
 
     getCategoriesHtml() {
@@ -249,7 +259,30 @@ class Category {
         this.conspects.push(conspect)
     }
     getHtml() {
-        return `<div class="category"><div class="categoryTitle"><button class="categoryButton">${this.name}</button><button class="deleteCategoryButton" data-category="${this.name}"><i class="fa fa-trash"></i></button></div><div class="conspects">${this.getConspectsHtml()}<div class="addConspectPanel" data-category="${this.name}"><button class="addConspectButton" data-category="${this.name}"><i class="fa fa-add"></i><p>Новый конспект</p></button></div></div></div>`
+        return `
+        <div class="category">
+            <div class="categoryTitle">
+                <button class="categoryButton">
+                    ${this.name}
+                </button>
+                <button class="deleteCategoryButton"
+                    data-category="${this.name}">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+            <div class="conspects">
+                ${this.getConspectsHtml()}
+                <div class="addConspectPanel"
+                    data-category="${this.name}">
+                    <button class="addConspectButton"
+                        data-category="${this.name}">
+                        <i class="fa fa-add"></i>
+                        <p>Новый конспект</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+        `
     }
     getConspectsHtml() {
         let html = ''
@@ -264,7 +297,20 @@ class Conspect {
         this.name = name
     }
     getHtml(category) {
-        return `<div class="conspect"><button class="deleteConspectButton" data-name="${this.name}" data-category="${category}"><i class="fa fa-trash"></i></button><button class="conspectButton" data-name="${this.name}" data-category="${category}">${this.name}</button></div>`
+        return `
+        <div class="conspect">
+            <button class="deleteConspectButton"
+                data-name="${this.name}"
+                data-category="${category}">
+                <i class="fa fa-trash"></i>
+            </button>
+            <button class="conspectButton"
+            data-name="${this.name}"
+            data-category="${category}">
+                ${this.name}
+            </button>
+        </div>
+        `
     }
 }
 
