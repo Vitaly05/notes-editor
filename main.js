@@ -8,7 +8,7 @@ const createWindow = () => {
     mainWindow = new BrowserWindow({
         width: 1200,
         height: 1000,
-        minWidth: 1020,
+        minWidth: 1100,
         minHeight: 700,
         
         title: 'Электнонные конспекты',

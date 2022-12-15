@@ -38,8 +38,10 @@ button:hover {
 
 #navigationPanel {
     position: fixed;
+    box-sizing: border-box;
     width: 25%;
     height: 100%;
+    padding: 10px;
     
     overflow-x: hidden;
 
@@ -249,6 +251,7 @@ button:hover {
 .title > input {
     box-sizing: border-box;
     height: 33px;
+    padding: 5px;
     margin-top: 13px;
 
     background: rgba(255, 255, 255, 0.76);
@@ -282,6 +285,8 @@ button:hover {
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;
+
+    transition: text-shadow 0.5s ease 0s;
 }
 #fileButtons > button:hover {
     text-shadow: 0 0 10px white;
@@ -304,7 +309,7 @@ button:hover {
 
 #tools {
     padding: 1%;
-    background-color: whitesmoke;
+    background-color: rgba(242, 78, 30, 0.76);
     border-radius: 10px 10px 0 0;
     
     display: flex;
@@ -317,9 +322,14 @@ button:hover {
     border-radius: 5px;
     background-color: transparent;
     transition: background-color 0.5s ease 0s;
+    color: white;
+
+    transition: text-shadow 0.5s ease 0s;
 }
 .toolButton:hover {
-    background-color: rgb(221, 221, 221);
+    background-color: transparent;
+    text-shadow: 0 0 10px white;
+
 }
 
 select {
