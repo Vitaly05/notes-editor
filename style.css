@@ -168,15 +168,22 @@ button:hover {
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
+
+    transition: box-shadow 0.5s ease 0s;
 }
 #addCategoryButton:hover {
-    background-color: #E4E1E1;
+    box-shadow: 0 0 10px white;
+    background-color: transparent;
 }
 
 #addCategoryButtons, .addConspectButtons {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.addConspectButtons > button {
+    padding: 10px;
 }
 
 .addCategoryButton {
@@ -203,14 +210,13 @@ button:hover {
     outline: none;
 }
 
-#addCategory_SaveButton {
-    text-align: left;
-}
-#addCategory_CancelButton {
-    text-align: right;
+#addCategory_SaveButton, #addCategory_CancelButton {
+    padding: 10px;
+    transition: box-shadow 0.5s ease 0s;
 }
 #addCategory_SaveButton:hover, #addCategory_CancelButton:hover {
-    background-color: #E4E1E1;
+    box-shadow: 0 0 10px white;
+    background-color: transparent;
 }
 
 
@@ -289,7 +295,7 @@ button:hover {
     transition: text-shadow 0.5s ease 0s;
 }
 #fileButtons > button:hover {
-    text-shadow: 0 0 10px white;
+    text-shadow: 0 0 15px white;
     background-color: transparent;
 }
 
@@ -324,11 +330,11 @@ button:hover {
     transition: background-color 0.5s ease 0s;
     color: white;
 
-    transition: text-shadow 0.5s ease 0s;
+    transition: box-shadow 0.5s ease 0s;
 }
 .toolButton:hover {
     background-color: transparent;
-    text-shadow: 0 0 10px white;
+    box-shadow: 0 0 5px white;
 
 }
 
@@ -347,6 +353,7 @@ select:focus {
 
     overflow-y: auto;
 
+    border-radius: 0 0 10px 10px;
     background-color: white;
     box-shadow: 0 10px 10px grey;
     transition: box-shadow 0.5s ease 0s;
