@@ -23,7 +23,7 @@ const createWindow = () => {
     mainWindow.setIcon(path.join(__dirname, 'res', 'icon.ico'))
 
     mainWindow.loadFile('index.html')
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 };
 
 app.whenReady().then(() => {
@@ -35,7 +35,7 @@ app.whenReady().then(() => {
         }
     })
 
-    // setShortcuts()
+    setShortcuts()
 });
 
 app.on('window-all-closed', () => {
