@@ -308,7 +308,12 @@ function showAddCategoryPanel(showPanel) {
         </div>
         `
     } else {
-        document.getElementById('addCategoryPanel').innerHTML = '<button id="addCategoryButton"><i class="fa fa-add"></i><p>Добавить<br />категорию</p></button>'
+        document.getElementById('addCategoryPanel').innerHTML = `
+        <button id="addCategoryButton">
+            <i class="fa fa-add"></i>
+            <span>Добавить категорию</span>
+        </button>
+        `
     }
 }
 
@@ -316,13 +321,27 @@ function showAddConspectPanel(showPanel, category) {
     if (showPanel) {
         document.querySelectorAll('.addConspectPanel').forEach(panel => {
             if (panel.dataset['category'] == category) {
-                panel.innerHTML = `<div class="addConspect"><input class="addConspectInput" data-category="${category}"></input><br /><div class="addConspectButtons"><button class="addConspect_SaveButton" data-category="${category}">Сохранить</button><button class="addConspect_CancelButton" data-category="${category}">Отмена</button></div></div>`
+                panel.innerHTML = `
+                <div class="addConspect">
+                    <input class="addConspectInput" data-category="${category}"></input>
+                    <br />
+                    <div class="addConspectButtons">
+                        <button class="addConspect_SaveButton" data-category="${category}">Сохранить</button>
+                        <button class="addConspect_CancelButton" data-category="${category}">Отмена</button>
+                    </div>
+                </div>
+                `
             }
         })
     } else {
         document.querySelectorAll('.addConspectPanel').forEach(panel => {
             if (panel.dataset['category'] == category) {
-                panel.innerHTML = `<button class="addConspectButton" data-category="${category}"><i class="fa fa-add"></i><p>Новый конспект</p></button>`
+                panel.innerHTML = `
+                <button class="addConspectButton" data-category="${category}">
+                    <i class="fa fa-add"></i>
+                    <span>Новый конспект</span>
+                </button>
+                `
             }
         })
     }

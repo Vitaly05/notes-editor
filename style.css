@@ -171,7 +171,7 @@ button:hover {
     background-color: #E4E1E1;
 }
 
-#addCategoryButtons {
+#addCategoryButtons, .addConspectButtons {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -187,15 +187,17 @@ button:hover {
     line-height: 12px;
 }
 
-#addCategoryInput {
+#addCategoryInput, .addConspectInput {
     width: 200px;
+    height: 21px;
     margin-bottom: 10px;
     text-align: center;
 
-    border-color: #F24E1E;
+    box-sizing: border-box;
+    border: 1px solid #F24E1E;
     border-radius: 10px;
 }
-#addCategoryInput:focus {
+#addCategoryInput:focus, .addConspectInput {
     outline: none;
 }
 
