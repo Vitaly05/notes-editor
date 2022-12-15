@@ -13,19 +13,23 @@
 
 <body>
     <div id="navigationPanel"></div>
-    <div id="workingArea" hidden>
-        <div id="fileButtons">
+    <div id="workingArea">
+        <div id="fileTitle">
             <div class="title">
-                Категория
+                Категория:
                 <input id="categoryName" />
             </div>
             <div class="title">
-                Название<span id="nonSaveIndicator" hidden>*</span>
+                Название<span id="nonSaveIndicator" hidden>*</span>:
                 <input id="conspectName" />
             </div>
-            <button id="saveButton">Сохранить</button>
-            <button id="saveAsButton">Сохранить как</button>
-            <button id="openFileButton">Открыть</button>
+            <div id="fileButtons">
+                <button id="saveAsButton">Сохранить как</button>
+                <hr />
+                <button id="saveButton">Сохранить</button>
+                <hr />
+                <button id="openFileButton">Открыть</button>
+            </div>
         </div>
         <div id="editor">
             <div id="tools">

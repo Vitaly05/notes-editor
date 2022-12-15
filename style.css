@@ -197,7 +197,7 @@ button:hover {
     border: 1px solid #F24E1E;
     border-radius: 10px;
 }
-#addCategoryInput:focus, .addConspectInput {
+#addCategoryInput:focus, .addConspectInput:focus {
     outline: none;
 }
 
@@ -209,4 +209,83 @@ button:hover {
 }
 #addCategory_SaveButton:hover, #addCategory_CancelButton:hover {
     background-color: #E4E1E1;
+}
+
+
+
+#workingArea {
+    box-sizing: border-box;
+    position: fixed;
+    left: 25%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#fileTitle {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 13px;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 24px;
+}
+.title > input {
+    box-sizing: border-box;
+    height: 33px;
+    margin-top: 13px;
+
+    background: rgba(255, 255, 255, 0.76);
+    border: 2px solid #F24E1E;
+    border-radius: 10px;
+}
+
+#fileButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    box-sizing: border-box;
+    width: 213px;
+
+    background: rgba(242, 78, 30, 0.76);
+    border: 2px solid #F24E1E;
+    border-radius: 10px;
+}
+#fileButtons > button {
+    color: white;
+    padding: 5px 0;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+}
+#fileButtons > button:hover {
+    text-shadow: 0 0 10px white;
+    background-color: transparent;
+}
+
+#fileButtons > hr {
+    height: 2px;
+    margin: 0 15%;
+    background-color: white;
+    border: none;
 }
