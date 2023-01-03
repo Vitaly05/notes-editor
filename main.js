@@ -50,7 +50,8 @@ ipcMain.handle('saveFileAs', (e, fileContents) => {
     dialog.showSaveDialog(mainWindow, {
         title: 'Сохранить как',
         filters: [
-            { name: 'Конспект', extensions: ['consp'] }
+            { name: 'Конспект', extensions: ['consp'] },
+            { name: 'Веб-страница', extensions: ['html'] }
         ]
     }).then(result => {
         if (!result.canceled) {
