@@ -302,14 +302,14 @@ function showAddCategoryPanel(showPanel) {
             <input id="addCategoryInput"></input>
             <br />
             <div id="addCategoryButtons">
-                <button class="addCategoryButton" id="addCategory_SaveButton">Сохранить</button>
-                <button class="addCategoryButton" id="addCategory_CancelButton">Отмена</button>
+                <button class="addCategoryButton clickable" id="addCategory_SaveButton">Сохранить</button>
+                <button class="addCategoryButton clickable" id="addCategory_CancelButton">Отмена</button>
             </div>
         </div>
         `
     } else {
         document.getElementById('addCategoryPanel').innerHTML = `
-        <button id="addCategoryButton">
+        <button id="addCategoryButton clickable">
             <i class="fa fa-add"></i>
             <span>Добавить категорию</span>
         </button>
@@ -326,8 +326,8 @@ function showAddConspectPanel(showPanel, category) {
                     <input class="addConspectInput" data-category="${category}"></input>
                     <br />
                     <div class="addConspectButtons">
-                        <button class="addConspect_SaveButton" data-category="${category}">Сохранить</button>
-                        <button class="addConspect_CancelButton" data-category="${category}">Отмена</button>
+                        <button class="addConspect_SaveButton clickable" data-category="${category}">Сохранить</button>
+                        <button class="addConspect_CancelButton clickable" data-category="${category}">Отмена</button>
                     </div>
                 </div>
                 `
@@ -337,7 +337,7 @@ function showAddConspectPanel(showPanel, category) {
         document.querySelectorAll('.addConspectPanel').forEach(panel => {
             if (panel.dataset['category'] == category) {
                 panel.innerHTML = `
-                <button class="addConspectButton" data-category="${category}">
+                <button class="addConspectButton clickable" data-category="${category}">
                     <i class="fa fa-add"></i>
                     <span>Новый конспект</span>
                 </button>

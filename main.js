@@ -23,7 +23,7 @@ const createWindow = () => {
     mainWindow.setIcon(path.join(__dirname, 'res', 'icon.ico'))
 
     mainWindow.loadFile('index.html')
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 };
 
 app.whenReady().then(() => {
@@ -234,7 +234,7 @@ class NavigationPanel {
         <div id="categories">
             ${this.getCategoriesHtml()}
             <div id="addCategoryPanel">
-                <button id="addCategoryButton">
+                <button id="addCategoryButton" class="clickable">
                     <i class="fa fa-add"></i>
                     <span>Добавить категорию</span>
                 </button>
@@ -266,7 +266,7 @@ class Category {
                 <span class="categoryName">
                     ${this.name}
                 </span>
-                <button class="deleteCategoryButton"
+                <button class="deleteCategoryButton clickable"
                     data-category="${this.name}">
                     <img class="deleteIcon" src="./res/deleteIcon.png" />
                 </button>
@@ -275,7 +275,7 @@ class Category {
                 ${this.getConspectsHtml()}
                 <div class="addConspectPanel"
                     data-category="${this.name}">
-                    <button class="addConspectButton"
+                    <button class="addConspectButton clickable"
                         data-category="${this.name}">
                         <i class="fa fa-add"></i>
                         <span>Новый конспект</span>
@@ -300,12 +300,12 @@ class Conspect {
     getHtml(category) {
         return `
         <div class="conspect">
-            <button class="conspectButton"
+            <button class="conspectButton clickable"
                 data-name="${this.name}"
                 data-category="${category}">
                 ${this.name}
             </button>
-            <button class="deleteConspectButton"
+            <button class="deleteConspectButton clickable"
                 data-name="${this.name}"
                 data-category="${category}">
                 <img class="deleteIcon" src="./res/deleteIcon.png" />
